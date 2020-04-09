@@ -5,6 +5,11 @@ import logo from '../../assets/bug.svg'
 import './style.css'
 
 const NavBarLogged = () => {
+
+    function handleLogoff(){
+        localStorage.clear()
+    }
+
     return (
         <>
             <nav className="navbar">
@@ -12,7 +17,7 @@ const NavBarLogged = () => {
                     <img className='logo-img' src={logo} alt='logo' />
                     <span className='logo-name' >Bug Hero</span>
                 </div>
-                <Link className='nav-link' to="/login">
+                <Link className='nav-link' to="/" onClick={() => (handleLogoff())}>
                     SAIR</Link>
             </nav>
         </>
