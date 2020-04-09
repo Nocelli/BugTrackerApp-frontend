@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { Formik } from 'formik';
+import { Link, useHistory, Redirect } from 'react-router-dom'
 import './style.css'
 import NavBar from '../../components/NavBar/NavBar'
 import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
@@ -15,6 +14,12 @@ const Logon = () => {
     const [isSubmiting, setIsSubmiting] = useState(false)
     const history = useHistory()
 
+    function handleRedirect() {
+        const token = localStorage.getItem('x-token')
+        const tokenRefresh = localStorage.getItem('x-token-refresh')
+        if (token && tokenRefresh)
+            return <Redirect to='/dashboard' />
+    }
     async function handleLogin(e) {
         e.preventDefault()
 
@@ -31,21 +36,19 @@ const Logon = () => {
         catch (error) {
             setIsSubmiting(false)
             const { response } = error;
-            setErrors(response.data.message || response.data.error)
+            setErrors( response ? response.data.message || response.data.error : 'Não foi possível estabelecer uma conexão com o servidor')
         }
     }
 
     return (
         <>
+            {handleRedirect()}
             <NavBar />
             <ErrorRenderer errors={errors} />
             <div className="logon-container">
                 <img className='menu-img' src={devicesImg} alt='login' />
                 <section className="form">
                     <img className='login-avatar' src={avatar} alt='login' />
-                    <Formik>
-
-                    </Formik>
                     <form onSubmit={handleLogin}>
                         <h1>Faça seu login</h1>
                         <input placeholder='E-mail' type="email"

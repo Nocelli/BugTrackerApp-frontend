@@ -13,10 +13,10 @@ const NavBarLogged = () => {
     return (
         <>
             <nav className="navbar">
-                <div className='logo' >
+                <a href='/dashboard' className='logo' >
                     <img className='logo-img' src={logo} alt='logo' />
                     <span className='logo-name' >Bug Hero</span>
-                </div>
+                </a>
                 <Link className='nav-link' to="/" onClick={() => (handleLogoff())}>
                     SAIR</Link>
             </nav>
