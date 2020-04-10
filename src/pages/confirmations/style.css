@@ -1,0 +1,26 @@
+.confirmations{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.confirmations .form{
+    margin-top: 3vw;
+}
+.confirmations .form .img-email {
+    height: 120px;
+
+}
+
+.confirmations .form h1{
+    color: #00C968;
+    padding-bottom: 10px;
+}
+
+.confirmations .form h3{
+    padding-top: 10px;
+    color: #333;
+}
+

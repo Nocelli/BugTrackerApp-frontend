@@ -23,7 +23,7 @@ const Register = () => {
     async function handleSubmitting({ name, email, password, confirmPass }) {
         try {
             setErrors(null)
-            if (password != confirmPass)
+            if (password !== confirmPass)
                 setErrors('Por favor, confirme sua senha antes de prosseguir')
             const response = await api.post('users', { name, email, password })
             if (response)
