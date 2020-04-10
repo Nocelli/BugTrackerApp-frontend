@@ -4,6 +4,7 @@
     background-color: #00C968;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 .logo{
@@ -41,3 +42,9 @@
 .nav-link:last-child {
     margin: 0 50px 0 10px;
 }
+
+@media only screen and (max-width: 768px) {
+    .navbar .nav-link:last-child{
+        margin: 0 20px 0 10px;
+    }
+  }

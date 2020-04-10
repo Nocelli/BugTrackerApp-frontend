@@ -3,6 +3,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 
 .menu-holder{
@@ -35,8 +36,6 @@
     width: 100%;
     padding: 32px;
     border-radius: 5px;
-    margin-top: 20vh;
-    margin-right: 10vw;
     border: none;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.233);
     align-items: center;
@@ -44,6 +43,11 @@
     flex-direction: column;
     width: 30vw;
     min-width: 300px;
+}
+
+.logon-container .form {
+    margin-top: 20vh;
+    margin-right: 10vw;
 }
 
 .form input {
@@ -111,3 +115,15 @@
     border: 10px solid #f0f0f5;
     border-radius: 50%;
 }
+
+
+@media only screen and (max-width: 768px) {
+    .logon-container .menu-holder {
+      display: none;
+    }
+
+    .logon-container .form {
+        margin-top: 15vh;
+        margin-right:  0vw;
+    }
+  }

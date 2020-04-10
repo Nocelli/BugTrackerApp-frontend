@@ -6,9 +6,29 @@
     height: 100%;
 }
 
-.form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.form-container .form{
+    margin-top: 5vh;
+}
+
+.form-container .form input{
+    height: 50px;
+}
+
+.form-container .form h1 {
+    color: #00C968;
+}
+
+.form-container .form h3{
+    color: #333;
+}
+
+.form-container .background{
+    width: 90vw;
+    position: absolute;
+    margin-top: 15vh;
+    z-index: -1;
+}
+
+.form-container .form .signup-avatar{
+    height: 100px;
 }

@@ -1,7 +1,6 @@
 .error-message{
     width: 90%;
-    position: sticky;
-    top: 0em;
+    top: 0;
     text-align: center;
     color: white;
     margin: 0 3em;
