@@ -36,7 +36,7 @@ const Logon = () => {
         catch (error) {
             setIsSubmiting(false)
             const { response } = error;
-            setErrors( response ? response.data.message || response.data.error : 'Não foi possível estabelecer uma conexão com o servidor')
+            setErrors(response ? response.data.message || response.data.error : 'Não foi possível estabelecer uma conexão com o servidor')
         }
     }
 
@@ -46,7 +46,13 @@ const Logon = () => {
             <NavBar />
             <ErrorRenderer errors={errors} />
             <div className="logon-container">
-                <img className='menu-img' src={devicesImg} alt='login' />
+                <div className='menu-holder'>
+                    <div className='menu-text'>
+                        <h1>Bem vindo de volta!</h1>
+                        <h3>Entre agora e comece a gerenciar seus projetos!</h3>
+                    </div>
+                    <img className='menu-img' src={devicesImg} alt='login' />
+                </div>
                 <section className="form">
                     <img className='login-avatar' src={avatar} alt='login' />
                     <form onSubmit={handleLogin}>
