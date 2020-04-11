@@ -1,7 +1,6 @@
 import React from 'react'
 import './style.css'
 
-
 const ErrorRenderer = ({ errors }) => {
     const showErrors = (errors) =>(
         errors ? 
@@ -17,3 +16,4 @@ const ErrorRenderer = ({ errors }) => {
 }
 
 export default ErrorRenderer
+

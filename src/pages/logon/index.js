@@ -65,7 +65,7 @@ const Logon = () => {
                             value={password}
                             onChange={e => setPassword(e.target.value)}
                         />
-                        <Link className='forgot-link' to="/forgotpass">
+                        <Link className='forgot-link' to="/password">
                             Esqueceu a senha?</Link>
                         <button className='button' type="submit" disabled={isSubmiting}>{isSubmiting ? 'Carregando...' : 'Entrar'}</button>
                     </form>

@@ -9,6 +9,11 @@
     box-sizing: border-box;
 }
 
+html{
+    height: 100%; 
+    overflow:auto;
+}
+
 body {
     font: 400 14px Roboto, sans-serif;
     background: #dde6df;
@@ -31,4 +36,13 @@ button:hover {
 .divider {
     background-color: #dde6dfa6;
     border: none;
+}
+
+.disabled{
+    filter: brightness(30%) !important;
+}
+
+.disabled:hover{
+    filter: brightness(30%) !important;
+    cursor: not-allowed !important;
 }

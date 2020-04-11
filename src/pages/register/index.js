@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import './style.css'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
@@ -14,6 +14,10 @@ const Register = () => {
     const [errors, setErrors] = useState(null)
     const history = useHistory()
 
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    },[errors])
+
     const validationSchema = yup.object({
         email: yup.string().email().required(),
         name: yup.string().required(),
@@ -23,8 +27,10 @@ const Register = () => {
     async function handleSubmitting({ name, email, password, confirmPass }) {
         try {
             setErrors(null)
-            if (password !== confirmPass)
+            if (password !== confirmPass){
                 setErrors('Por favor, confirme sua senha antes de prosseguir')
+                return
+            }
             const response = await api.post('users', { name, email, password })
             if (response)
                 history.push('/confirmations')
