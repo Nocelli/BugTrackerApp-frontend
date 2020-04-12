@@ -21,6 +21,7 @@
     border: none;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.233);
     align-items: center;
+    text-align: center;
 }
 
 .dashboard .dashboard-title{
@@ -78,7 +79,7 @@
     border: none;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.233);
     align-items: center;
-    text-align: justify;
+    text-align: center;
     width: 40%;
     min-width: 360px;
 }
@@ -139,3 +140,15 @@
     color: #555;
     filter: brightness(160%);
 }
+
+@media only screen and (max-width: 768px) {
+    .dashboard .projects-container .project{
+        width: 90%;
+        min-width: 210px;
+    }
+
+    .dashboard .buttons button {
+        width: 40%;
+        margin: 10px;
+    }
+  }
