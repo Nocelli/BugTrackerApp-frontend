@@ -11,6 +11,7 @@ import Confirmations from './pages/confirmations'
 import ConfirmedEmail from './pages/confirmedEmail'
 import ResetPassword from './pages/resetPassword'
 import NewPassword from './pages/newPassord'
+import NewProject from './pages/newProject'
 
 const Routes = () => {
     return (
@@ -24,6 +25,9 @@ const Routes = () => {
                 <Route path='/password' exact component={ResetPassword} />
                 <Route path='/password/new/:token' exact component={NewPassword} />
                 <ProtectedRoute path='/dashboard' exact component={Dashboard} />
+                <ProtectedRoute path='/project/new' exact component={NewProject} />
+                <ProtectedRoute path='/project/:projectId' exact component={Dashboard} />
+                <Route exact component={Logon} />
             </Switch>
         </Router>
     );
