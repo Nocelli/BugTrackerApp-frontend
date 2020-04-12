@@ -1,0 +1,27 @@
+.pag404{
+    overflow-y: hidden;
+     overflow-x: hidden;
+}
+
+.pag404 .pag404-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #333333;
+}
+
+.pag404 .pag404-container .pag404-svg{
+    height: 80vh;
+}
+
+.pag404 .pag404-container .back-link{
+    color: #00C968;
+    text-decoration: none;
+    font-size: 2rem;
+}
+
+.pag404 .pag404-container .back-link:hover{
+    filter: brightness(80%);
+}
+
