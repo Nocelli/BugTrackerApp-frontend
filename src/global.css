@@ -18,6 +18,8 @@ body {
     font: 400 14px Roboto, sans-serif;
     background: #dde6df;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    height: 100%;
 }
 
 input, button, textarea {

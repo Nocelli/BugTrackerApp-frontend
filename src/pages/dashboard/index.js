@@ -10,28 +10,28 @@ import { useHistory } from 'react-router-dom'
 
 const Dashboard = () => {
     const [projects, setProjects] = useState([])
-    const [errors,setErrors] = useState(null)
-    const [isSubmitting,setIsSubmitting] = useState(false)
+    const [errors, setErrors] = useState(null)
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const history = useHistory()
     const token = localStorage.getItem('x-token')
     const tokenRefresh = localStorage.getItem('x-token-refresh')
 
-    const handleRedirect = () =>{
+    const handleRedirect = () => {
         history.push('/project/new')
     }
 
     const handleLoadProjects = async () => {
+        setIsSubmitting(true)
         try {
-            setIsSubmitting(true)
             if (!token || !tokenRefresh)
                 return
 
-            
+
             const response = await api.get('/profile', { headers: { 'x-token': token, 'x-token-refresh': tokenRefresh } })
-            setProjects(response.data)
             setIsSubmitting(false)
-            if(response.headers['x-token'])
+            setProjects(response.data)
+            if (response.headers['x-token'])
                 localStorage.setItem('x-token', response.headers['x-token'])
         }
         catch (err) {
@@ -39,7 +39,7 @@ const Dashboard = () => {
             const { response } = err
             setErrors(response ? response.data.message || response.data.error : 'Não foi possível estabelecer uma conexão com o servidor')
 
-            if(response && response.status === 401){
+            if (response && response.status === 401) {
                 console.log(response)
                 localStorage.clear()
                 history.push('/')
@@ -49,11 +49,11 @@ const Dashboard = () => {
 
     useEffect(() => {
         handleLoadProjects()
-    }, [])
+    },[])
 
-    useEffect(()=>{
+    useEffect(() => {
         window.scrollTo(0, 0)
-    },[errors])
+    }, [errors])
 
     return (
         <div className='dashboard-container'>
@@ -63,7 +63,7 @@ const Dashboard = () => {
                 <h1 className='dashboard-title'>Todos os projetos</h1>
                 <h2 className='dashboard-subtitle'>Clique em 'mais' para ver mais opções.</h2>
                 <div className="buttons">
-                    <button onClick={handleLoadProjects} disabled={isSubmitting}>Atualizar</button>
+                    <button className={isSubmitting ? 'disabled' : null} onClick={handleLoadProjects} disabled={isSubmitting}>{isSubmitting ? `Atualizando...` : `Atualizar`}</button>
                     <button onClick={handleRedirect}>Novo</button>
                 </div>
                 <div className='projects-container'>
