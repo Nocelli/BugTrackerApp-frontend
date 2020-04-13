@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../services/api'
 import './style.css'
-import { FiChevronsLeft as ArrowLeft } from "react-icons/fi";
+import { FiChevronsLeft as ArrowLeft, FiPlusCircle as Plus } from "react-icons/fi";
 import NavBar from '../../components/NavBarLogged/NavBarLogged'
+import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
+import ProjectTicket from '../../components/ProjectTicket/ProjectTicket'
 import { Link, useHistory, useParams } from 'react-router-dom'
 
 const ProjectPage = () => {
@@ -48,6 +50,7 @@ const ProjectPage = () => {
     return (
         <>
             <NavBar />
+            <ErrorRenderer errors={errors}/>
             <div className='project-page'>
                 <div className='back-button'>
                     <ArrowLeft />
@@ -62,17 +65,22 @@ const ProjectPage = () => {
                     <h5>{project.project_description}</h5>
                     <div className='project-items-container'>
                         <div className='project-tickets'>
-                            <h6>Problemas:</h6>
-                            <pre>{JSON.stringify(members, null, 2)}</pre>
-                            {tickets.map(ticket => (
-                                <span>{ticket.ticket_name}</span>
+                            <h6>Problemas</h6>
+                            <a className='button-new' href='/project/a47ad11a/ticket/new'>
+                                <span className='button-new-text'>NOVO <Plus className='icon-plus'/></span>
+                            </a>
+                            {tickets.map((ticket, index) => (
+                                <ProjectTicket key={index} ticket={ticket} />
                             ))}
                         </div>
                         <div className='project-members'>
-                            <h6>Membros:</h6>
+                            <h6>Membros</h6>
+                            <div className='button-new'>
+                                <Link className='button-new-text' to=''>CONVIDAR <Plus className='icon-plus'/></Link>
+                            </div>
                             <pre>{JSON.stringify(members, null, 2)}</pre>
-                            {members.map(member => (
-                                <span>{member.member_name}</span>
+                            {members.map((member , index) => (
+                                <span key={index}>{member.member_name}</span>
                             ))}
                         </div>
                     </div>

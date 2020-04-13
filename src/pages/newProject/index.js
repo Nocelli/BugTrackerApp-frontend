@@ -6,7 +6,7 @@ import { FiChevronsLeft as ArrowLeft } from "react-icons/fi";
 import NavBarLogged from '../../components/NavBarLogged/NavBarLogged'
 import api from '../../services/api'
 import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
-import * as yup from 'yup'
+import yup from '../../validation/Validate'
 
 import { ReactComponent as Avatar } from '../../assets/newproject.svg'
 

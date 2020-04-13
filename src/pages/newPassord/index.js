@@ -4,7 +4,7 @@ import './style.css'
 import NavBar from '../../components/NavBar/NavBar'
 import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
 import NotificationRenderer from '../../components/NotificationRenderer/NotificationRenderer'
-import * as yup from 'yup'
+import yup from '../../validation/Validate'
 import api from '../../services/api'
 
 

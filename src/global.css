@@ -16,7 +16,11 @@ html{
 
 body {
     font: 400 14px Roboto, sans-serif;
-    background: #dde6df;
+    
+    /* background: #dde6df; */
+
+    background-image: linear-gradient(135deg, #dde6df 21.43%, #f0f0f5 21.43%, #f0f0f5 50%, #dde6df 50%, #dde6df 71.43%, #f0f0f5 71.43%, #f0f0f5 100%);
+
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     height: 100%;

@@ -8,6 +8,7 @@
 
 .form-container .form{
     margin-top: 5vh;
+    position: relative;
 }
 
 .form-container .form input{
@@ -31,4 +32,26 @@
 
 .form-container .form .signup-avatar{
     height: 100px;
+}
+
+.form-container .form .back-button{
+    font-size: 1.5rem;
+    color: #00C968;
+    text-decoration: none;
+    position: absolute ;
+    left: 0;
+    top: 0;
+}
+
+.form-container .form .back-button:hover{
+    filter: brightness(80%);
+}
+
+.form-container .form .back-button .back-button-text{
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #00C968;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 6px;
 }

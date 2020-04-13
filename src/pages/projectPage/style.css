@@ -1,9 +1,11 @@
 .project-page{
     box-sizing: border-box;
     background-color: #f2f5f0;
-    height: 100vmin;
+    height: fit-content;
+    width: calc(100% - 4rem);
+    min-width: fit-content;
     min-height: 100%;
-    margin: 30px;
+    margin: 2rem;
     border-radius: 20px;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.233);
     display: flex;
@@ -17,8 +19,8 @@
     color: #00C968;
     text-decoration: none;
     position: absolute ;
-    margin-top: 5px;
-    margin-left: 15px;
+    margin-top: 0.4rem;
+    margin-left: 1rem;
 }
 
 .project-page .back-button:hover{
@@ -35,6 +37,7 @@
 }
 
 .project-page .project-holder{
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,7 +47,7 @@
 }
 
 .project-page .project-holder h1{
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: #00C968;
     background-color: #f2f5f0;
     border-radius: 16px;
@@ -69,26 +72,75 @@
 .project-page .project-holder .project-items-container{
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: 95%;
     flex-wrap: wrap;
 }
 
 .project-page .project-holder .project-items-container .project-tickets , .project-page .project-holder .project-items-container .project-members{
     background-color: #f5f5f7;
-    width: 45%;
+    width: 100%;
     padding: 1rem;
     margin: 10px;
     border-radius: 16px;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.233);
     font-size: 1rem;
-    margin-top: 1.2rem;
+    margin-top: 2rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .project-page .project-holder .project-items-container .project-tickets h6, .project-page .project-holder .project-items-container .project-members h6{
+    width: 100%;
     color: #f5f5f7;
     font-size: 1.7rem;
-    margin-top: -30px;
+    margin-top: -2.2rem;
     background: #00C968;
     border-radius: 16px;
     padding: 10px;
+    text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9;
 }
+
+.button-new{
+    text-decoration: none;
+    font-weight: bold;
+    width: 95%;
+    margin-top: .5rem;
+    cursor: pointer;
+    background: transparent;
+    border: #333 2px dashed;
+    padding: 8px;
+    border-radius: 16px;
+    color: #333333;
+}
+
+.button-new:hover{
+    filter: brightness(150%);
+}
+
+.button-new .button-new-text{
+    text-decoration: none;
+    color: #333333;
+}
+
+.button-new .icon-plus{
+    top: .125em;
+    position: relative;
+}
+
+@media screen and (max-width: 560px) {
+    *{
+        font-size: 12px;
+    }
+    .project-page .back-button{
+        margin-top: -1.8rem;
+        margin-left: -1.4rem;
+    }
+  }
+
+@media screen and (max-width: 375px) {
+    *{
+        font-size: 10px;
+    }
+  }

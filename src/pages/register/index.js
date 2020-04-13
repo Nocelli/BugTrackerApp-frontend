@@ -4,7 +4,8 @@ import './style.css'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import api from '../../services/api'
 import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
-import * as yup from 'yup'
+import yup from '../../validation/Validate'
+import { FiChevronsLeft as ArrowLeft } from "react-icons/fi";
 
 import { ReactComponent as Background } from '../../assets/signup_background.svg'
 import { ReactComponent as Avatar } from '../../assets/avatar.svg'
@@ -54,6 +55,11 @@ const Register = () => {
                 validationSchema={validationSchema}>
                 {({ isSubmitting }) => (
                     <Form className='form'>
+                        <div className='back-button'>
+                            <ArrowLeft />
+                            <Link className='back-button-text' to="/dashboard">
+                                Voltar</Link>
+                        </div>
                         <Avatar className='signup-avatar' />
                         <h1>Cadastre-se</h1>
                         <h3>crie uma conta rápido e fácil</h3>

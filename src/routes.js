@@ -13,6 +13,7 @@ import ResetPassword from './pages/resetPassword'
 import NewPassword from './pages/newPassord'
 import NewProject from './pages/newProject'
 import ProjectPage from './pages/projectPage'
+import NewTicket from './pages/newTicket'
 import Page404 from './pages/404page'
 
 const Routes = () => {
@@ -29,6 +30,7 @@ const Routes = () => {
                 <ProtectedRoute path='/dashboard' exact component={Dashboard} />
                 <ProtectedRoute path='/project/new' exact component={NewProject} />
                 <ProtectedRoute path='/project/:projectId' exact component={ProjectPage} />
+                <ProtectedRoute path='/project/:projectId/ticket/new' exact component={NewTicket}/>
                 <Route exact component={Page404} />
             </Switch>
         </Router>

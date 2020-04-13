@@ -1,0 +1,85 @@
+.NewTicket{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vmax;
+    overflow-x: hidden;
+}
+
+.NewTicket .NewTicket-svg{
+    height: 10rem;
+}
+
+.NewTicket .form{
+    margin-top: 1rem;
+    width: 80%;
+    position: relative;
+}
+
+.NewTicket .form h1{
+    color: #00C968;
+}
+
+.NewTicket .form h3{
+    color: #333;
+}
+
+.NewTicket .form .summary , .NewTicket .form .desc{
+    font-size: 1.5rem;
+    margin-top: 5px;
+    width: 100%;
+    color: #333;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    padding: 0 24px;
+    resize: none;
+    text-align: start;
+    height: 3rem;
+}
+
+.NewTicket .form .dropdown{
+    font-size: 1.5rem;
+    margin-top: .3rem;
+    width: 100%;
+    color: #333;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    padding: 0 1.5rem;
+    resize: none;
+    text-align: start;
+    height: 3rem;
+}
+
+
+.NewTicket .form .desc{
+    height: 6em !important;
+}
+
+.NewTicket .background{
+    width: 90vw;
+    position: absolute;
+    margin-top: 15vh;
+    z-index: -1;
+}
+
+.NewTicket .form .back-button{
+    font-size: 1.5rem;
+    color: #00C968;
+    text-decoration: none;
+    position: absolute ;
+    left: 0;
+    top: 0;
+}
+
+.NewTicket .form .back-button:hover{
+    filter: brightness(80%);
+}
+
+.NewTicket .form .back-button .back-button-text{
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #00C968;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 6px;
+}
