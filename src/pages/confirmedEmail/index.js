@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import './style.css'
-import NavBar from '../../components/NavBar/NavBar'
 import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
 import api from '../../services/api'
 
@@ -32,7 +31,6 @@ const ConfirmedEmail = () => {
 
     return (
         <>
-            <NavBar />
             <ErrorRenderer errors={errors} />
             <div className='confirmations'>
                 <div className='form'>

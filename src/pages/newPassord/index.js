@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import './style.css'
-import NavBar from '../../components/NavBar/NavBar'
 import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
 import NotificationRenderer from '../../components/NotificationRenderer/NotificationRenderer'
 import yup from '../../validation/Validate'
@@ -50,7 +49,6 @@ const NewPassword = () => {
 
     return (
         <>
-            <NavBar />
             <ErrorRenderer errors={errors} />
             <NotificationRenderer notifications={notifications} />
             <Formik initialValues={{ password: '' ,confirmPass: ''}}

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import api from '../../services/api'
 import './style.css'
 import { FiChevronsLeft as ArrowLeft, FiPlusCircle as Plus } from "react-icons/fi";
-import NavBar from '../../components/NavBarLogged/NavBarLogged'
 import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
 import ProjectTicket from '../../components/ProjectTicket/ProjectTicket'
 import { Link, useHistory, useParams } from 'react-router-dom'
@@ -49,7 +48,6 @@ const ProjectPage = () => {
 
     return (
         <>
-            <NavBar />
             <ErrorRenderer errors={errors}/>
             <div className='project-page'>
                 <div className='back-button'>
@@ -66,9 +64,9 @@ const ProjectPage = () => {
                     <div className='project-items-container'>
                         <div className='project-tickets'>
                             <h6>Problemas</h6>
-                            <a className='button-new' href='/project/a47ad11a/ticket/new'>
+                            <Link className='button-new' to={`/project/${projectId}/ticket/new`}>
                                 <span className='button-new-text'>NOVO <Plus className='icon-plus'/></span>
-                            </a>
+                            </Link>
                             {tickets.map((ticket, index) => (
                                 <ProjectTicket key={index} ticket={ticket} />
                             ))}

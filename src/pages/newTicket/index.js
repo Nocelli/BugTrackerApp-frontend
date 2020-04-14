@@ -3,7 +3,6 @@ import { Link, useHistory, useParams } from 'react-router-dom'
 import './style.css'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import { FiChevronsLeft as ArrowLeft } from "react-icons/fi";
-import NavBarLogged from '../../components/NavBarLogged/NavBarLogged'
 import api from '../../services/api'
 import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
 import yup from '../../validation/Validate'
@@ -58,7 +57,6 @@ const NewTicket = () => {
 
     return (
         <div className='NewTicket'>
-            <NavBarLogged />
             <ErrorRenderer errors={errors} />
             <Formik initialValues={{ name: '', summary: '', description: '' ,status: '', severity: '',type:''}}
                 onSubmit={async (data, { setSubmitting }) => {

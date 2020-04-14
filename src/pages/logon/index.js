@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-import { Link, useHistory, Redirect } from 'react-router-dom'
+import { Link, Redirect, useHistory } from 'react-router-dom'
 import './style.css'
-import NavBar from '../../components/NavBar/NavBar'
 import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
 import api from '../../services/api'
 import devicesImg from '../../assets/undraw_mobile_devices_k1ok.svg'
 import avatar from '../../assets/avatar_male.svg'
 
-const Logon = () => {
+const Logon = ({ setIsAuthenticated }) => {
     const [email, setEmail] = useState('')
     const [errors, setErrors] = useState(null)
     const [password, setPassword] = useState('')
@@ -20,6 +19,7 @@ const Logon = () => {
         if (token && tokenRefresh)
             return <Redirect to='/dashboard' />
     }
+
     async function handleLogin(e) {
         e.preventDefault()
 
@@ -30,7 +30,9 @@ const Logon = () => {
 
             localStorage.setItem('x-token', response.headers['x-token'])
             localStorage.setItem('x-token-refresh', response.headers['x-token-refresh'])
+            localStorage.setItem('x-userId', response.data['userId'])
             setIsSubmiting(false)
+            setIsAuthenticated(true)
             history.push('/dashboard')
         }
         catch (error) {
@@ -43,7 +45,6 @@ const Logon = () => {
     return (
         <>
             {handleRedirect()}
-            <NavBar />
             <ErrorRenderer errors={errors} />
             <div className="logon-container">
                 <div className='menu-holder'>

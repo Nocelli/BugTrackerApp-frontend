@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../services/api'
-import NavBarLogged from '../../components/NavBarLogged/NavBarLogged'
 import DashboardItem from '../../components/DashboardItem/DashboardItem'
 import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
 
@@ -57,7 +56,6 @@ const Dashboard = () => {
 
     return (
         <div className='dashboard-container'>
-            <NavBarLogged />
             <ErrorRenderer errors={errors} />
             <div className='dashboard'>
                 <h1 className='dashboard-title'>Todos os projetos</h1>

@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-
+import NavBar from './components/NavBar/NavBar'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
+import handleLogon from './services/socketHandler'
+import checkAuth from './Auth/CheckAuth'
 
 import Logon from './pages/logon'
 import LandingPage from './pages/landingpage'
@@ -17,11 +19,33 @@ import NewTicket from './pages/newTicket'
 import Page404 from './pages/404page'
 
 const Routes = () => {
+
+    let socket
+    const [notification, setNotification] = useState(false)
+    const [isAuthenticated, setIsAuthenticated] = useState(checkAuth())
+
+    function handleSocket() {
+        if(!socket)
+            socket = handleLogon()
+
+        if (socket) {
+            socket.on("FromAPI", data => setNotification(data))
+
+            if (!isAuthenticated)
+                socket.disconnect()
+        }
+    }
+
+    useEffect(() => {
+        handleSocket()
+    }, [isAuthenticated])
+
     return (
         <Router>
+            <NavBar setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated} notification={notification} />
             <Switch>
                 <Route path='/' exact component={LandingPage} />
-                <Route path='/login' exact component={Logon} />
+                <Route path='/login' exact component={() => (<Logon setIsAuthenticated={setIsAuthenticated} />)} />
                 <Route path='/register' exact component={Register} />
                 <Route path='/confirmations' exact component={Confirmations} />
                 <Route path='/confirmed/:token' exact component={ConfirmedEmail} />
@@ -30,7 +54,7 @@ const Routes = () => {
                 <ProtectedRoute path='/dashboard' exact component={Dashboard} />
                 <ProtectedRoute path='/project/new' exact component={NewProject} />
                 <ProtectedRoute path='/project/:projectId' exact component={ProjectPage} />
-                <ProtectedRoute path='/project/:projectId/ticket/new' exact component={NewTicket}/>
+                <ProtectedRoute path='/project/:projectId/ticket/new' exact component={NewTicket} />
                 <Route exact component={Page404} />
             </Switch>
         </Router>
