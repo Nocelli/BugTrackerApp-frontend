@@ -30,13 +30,13 @@ const ProjectTicket = ({ ticket }) => {
     console.log(date);
 
     return (
-        <a href={`ticket/${ticket.ticket_id}`} className='ticket-holder'>
+        <div className='ticket-holder'>
             <span className='ticket-name' >{name}</span>
             <span className='ticket-type' style={{ background: backgrounds.type[ticket.ticket_type] }}>{ticket.ticket_type}</span>
             <span className='ticket-status' style={{ background: backgrounds.status[ticket.ticket_status] }}>{ticket.ticket_status}</span>
             <span className='ticket-severity' style={{ background: backgrounds.severity[ticket.ticket_severity] }}>{ticket.ticket_severity}</span>
             <span className='ticket-date'>{date}</span>
-        </a>
+        </div>
     )
 }
 

@@ -78,7 +78,6 @@ const ProjectPage = () => {
                             <div className='button-new'>
                                 <Link className='button-new-text' to=''>CONVIDAR <Plus className='icon-plus'/></Link>
                             </div>
-                            <pre>{JSON.stringify(members, null, 2)}</pre>
                             {members.map((member , index) => (
                                 <span key={index}>{member.member_name}</span>
                             ))}
