@@ -78,32 +78,32 @@ const NewTicket = () => {
                         <Field name='name' placeholder='Nome' type='input' />
                         <ErrorMessage render={msg => <ErrorRenderer errors={msg} />} name="name"/>
 
-                        <Field className='summary' name='summary' placeholder='Sumário' component='textarea' maxlength = "100" />
+                        <Field className='summary' name='summary' placeholder='Sumário' component='textarea' maxLength = "100" />
                         <ErrorMessage render={msg => <ErrorRenderer errors={msg} />} name="summary" />
                         
-                        <Field className='desc' name='description' placeholder='Descrição' component='textarea' maxlength = "300" />
+                        <Field className='desc' name='description' placeholder='Descrição' component='textarea' maxLength = "300" />
                         <ErrorMessage render={msg => <ErrorRenderer errors={msg} />} name="description" />
 
                         <Field className='dropdown' name='status' component='select'>
                             <option value="" label="Escolha um status" />
-                            {statuses.map(status => (
-                                <option value={status} label={status} />
+                            {statuses.map((status , index) => (
+                                <option key={index} value={status} label={status} />
                             ))}
                         </Field>
                         <ErrorMessage render={msg => <ErrorRenderer errors={msg} />} name="status" />
 
                         <Field className='dropdown' name='severity' component='select'>
                             <option value="" label="Escolha a severidade" />
-                            {severitys.map(severity => (
-                                <option value={severity} label={severity} />
+                            {severitys.map((severity, index) => (
+                                <option key={index} value={severity} label={severity} />
                             ))}
                         </Field>
                         <ErrorMessage render={msg => <ErrorRenderer errors={msg} />} name="severity" />
 
                         <Field className='dropdown' name='type' component='select'>
                             <option value="" label="Escolha o tipo" />
-                            {types.map(type => (
-                                <option value={type} label={type} />
+                            {types.map((type, index) => (
+                                <option key={index} value={type} label={type} />
                             ))}
                         </Field>
                         <ErrorMessage render={msg => <ErrorRenderer errors={msg} />} name="type" />

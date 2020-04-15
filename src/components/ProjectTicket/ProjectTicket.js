@@ -25,9 +25,8 @@ const ProjectTicket = ({ ticket }) => {
         }
     }
 
-    const name = `${ticket.ticket_name.slice(0, 28)}...`
+    const name = `${ticket.ticket_name.slice(0, 25)}...`
     const date = new Date(ticket.ticket_creationdate * 1000).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' })
-    console.log(date);
 
     return (
         <div className='ticket-holder'>
