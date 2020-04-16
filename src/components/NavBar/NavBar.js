@@ -1,13 +1,49 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import api from '../../services/api'
+import { Link, useHistory } from 'react-router-dom'
+import NotificationsDropDown from '../../components/NotificationsDropDown/NotificationsDropDown'
 import logo from '../../assets/bug.svg'
 import './style.css'
 
-const NavBar = ({ setIsAuthenticated, isAuthenticated, notification }) => {
+const NavBar = ({ setIsAuthenticated, isAuthenticated, notification, setErrors }) => {
+
+    const token = localStorage.getItem('x-token')
+    const tokenRefresh = localStorage.getItem('x-token-refresh')
+    const [notifications, setNorifications] = useState([])
+    const [isNotificationsShowing, setIsNotificationsShowing] = useState(false)
+    const history = useHistory()
 
     function handleLogoff() {
         localStorage.clear()
         setIsAuthenticated(false)
+    }
+
+    const handleNotifications = async () => {
+        togleNotifications()
+        try {
+            if (!token || !tokenRefresh)
+                return
+
+            const response = await api.get(`/notifications`, { headers: { 'x-token': token, 'x-token-refresh': tokenRefresh } })
+            setNorifications(response.data)
+            console.log(response.data)
+
+            if (response.headers['x-token'])
+                localStorage.setItem('x-token', response.headers['x-token'])
+        }
+        catch (err) {
+            const { response } = err
+            console.log(response)
+
+            if (response && response.status === 401) {
+                localStorage.clear()
+                history.push('/')
+            }
+        }
+    }
+
+    const togleNotifications = () => {
+        setIsNotificationsShowing(!isNotificationsShowing)
     }
 
     return (
@@ -19,9 +55,13 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated, notification }) => {
                         <span className='logo-name' >Bug Hero</span>
                     </Link>
                     <div className='navbar-items'>
-                        <div className='nav-notification'>
+                        <Link to='/dashboard' className='nav-item'>
+                            <span>Projetos</span>
+                        </Link>
+                        <hr className='divider' width="1" size="30" />
+                        <div className='nav-notification' onClick={handleNotifications}>
                             <span>Notificações</span>
-                            {notification>0 ?
+                            {notification > 0 ?
                                 (<span className={'new-notification'}>{notification}</span>)
                                 : null}
                         </div>
@@ -43,6 +83,10 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated, notification }) => {
                             CADASTRE-SE</Link>
                     </div>
                 </nav>)}
+            {isNotificationsShowing ?
+                (<NotificationsDropDown notifications={notifications} setShowing={setIsNotificationsShowing} />)
+                : null}
+
         </>
     )
 }

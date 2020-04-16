@@ -1,0 +1,53 @@
+.notification-container{
+    margin-top: 2rem;
+    color: #333;
+    margin: 10px;
+    background-color: #f2f5f0;
+    border-radius: 16px;
+    padding: 1rem;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.233);
+}
+
+.notification-container .notification-text h1{
+    font-size: 1rem;
+    color: #00C968;
+}
+
+.notification-container .notification-text h2{
+    font-size: .9rem;
+}
+
+.notification-container h3{
+    text-align: left;
+    font-size: .8rem;
+    color: #1d1d1f;
+    margin-bottom: 1rem;
+}
+
+.notification-container .buttons{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+.notification-container .buttons .deny{
+    width: 40%;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    background: #cc0000;
+    border-radius: 16px;
+    padding: 1rem;
+    text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9;
+}
+
+.notification-container .buttons .accept{
+    width: 40%;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    background: #00C968;
+    border-radius: 16px;
+    padding: 1rem;
+    text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9;
+}

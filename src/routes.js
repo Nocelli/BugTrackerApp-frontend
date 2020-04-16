@@ -30,7 +30,7 @@ const Routes = () => {
             socket = handleLogon()
 
         if (socket) {
-            socket.on("FromAPI", data => setNotification(data<1 ? data : null))
+            socket.on("FromAPI", data => setNotification(data > 0 ? data : null))
 
             if (!isAuthenticated)
                 socket.disconnect()

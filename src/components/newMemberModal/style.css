@@ -92,3 +92,17 @@
     text-decoration: none;
     margin-left: 6px;
 }
+
+.modal .modal-form .dropdown{
+    font-size: 1.5rem;
+    margin-top: .3rem;
+    width: 100%;
+    color: rgba(51, 51, 51, 0.7);
+    font-weight: 500;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    padding: 0 1.5rem;
+    resize: none;
+    text-align: start;
+    height: 3rem;
+}

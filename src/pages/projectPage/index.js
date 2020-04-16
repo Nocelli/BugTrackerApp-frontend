@@ -4,6 +4,7 @@ import './style.css'
 import { FiChevronsLeft as ArrowLeft, FiPlusCircle as Plus } from "react-icons/fi";
 import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
 import ProjectTicket from '../../components/ProjectTicket/ProjectTicket'
+import ProjecMember from '../../components/ProjectMember/ProjectMember'
 import NewMemberModal from '../../components/newMemberModal/newMemberModal'
 import { Link, useHistory, useParams } from 'react-router-dom'
 
@@ -84,7 +85,7 @@ const ProjectPage = () => {
                                 <span className='button-new-text'>CONVIDAR <Plus className='icon-plus'/></span>
                             </div>
                             {members.map((member , index) => (
-                                <span key={index}>{member.member_name}</span>
+                                <ProjecMember key={index} member={member} />
                             ))}
                         </div>
                     </div>

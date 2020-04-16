@@ -5,6 +5,7 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
+    user-select: none;
 }
 
 .navbar .navbar-items{
@@ -16,6 +17,13 @@
     position: relative;
     margin-right: 3rem;
     font-weight: bold;
+}
+
+.navbar .navbar-items .nav-item{
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #f5f5f0;
+    text-decoration: none;
 }
 
 .nav-link:hover{
