@@ -17,7 +17,7 @@ const NewProject = () => {
     const tokenRefresh = localStorage.getItem('x-token-refresh')
 
     useEffect(() => {
-        window.scrollTo(0, 0)
+        document.body.scrollTo(0, 0)
     }, [errors])
 
     const validationSchema = yup.object({
@@ -70,10 +70,10 @@ const NewProject = () => {
                         <Field name='name' placeholder='Nome' type='input' />
                         <ErrorMessage render={msg => <ErrorRenderer errors={msg} />} name="name"/>
 
-                        <Field className='summary' name='summary' placeholder='Sumário' component='textarea' maxlength = "144" />
+                        <Field className='summary' name='summary' placeholder='Sumário' component='textarea' maxLength = "144" />
                         <ErrorMessage render={msg => <ErrorRenderer errors={msg} />} name="summary" />
                         
-                        <Field className='desc' name='description' placeholder='Visão geral do projeto' component='textarea' maxlength = "500" />
+                        <Field className='desc' name='description' placeholder='Visão geral do projeto' component='textarea' maxLength = "400" />
                         <ErrorMessage render={msg => <ErrorRenderer errors={msg} />} name="description" />
                         <button type='submit' disabled={isSubmitting}>Criar projeto</button>
                     </Form>

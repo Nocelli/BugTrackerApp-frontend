@@ -4,10 +4,12 @@ import './style.css'
 import { FiChevronsLeft as ArrowLeft, FiPlusCircle as Plus } from "react-icons/fi";
 import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
 import ProjectTicket from '../../components/ProjectTicket/ProjectTicket'
+import NewMemberModal from '../../components/newMemberModal/newMemberModal'
 import { Link, useHistory, useParams } from 'react-router-dom'
 
 const ProjectPage = () => {
 
+    const [openModal,setOpenModal] = useState(false)
     const [project, setProject] = useState({})
     const [members, setMembers] = useState([])
     const [tickets, setTickets] = useState([])
@@ -46,8 +48,13 @@ const ProjectPage = () => {
         handleLoadProject()
     }, [])
 
+    useEffect(() => {
+        document.body.scrollTo(0, 0);
+    }, [errors])
+
     return (
-        <>
+        <>  
+            <NewMemberModal openModal={openModal} projectId={projectId} setErrors={setErrors} setOpenModal={setOpenModal}/>
             <ErrorRenderer errors={errors}/>
             <div className='project-page'>
                 <div className='back-button'>
@@ -73,8 +80,8 @@ const ProjectPage = () => {
                         </div>
                         <div className='project-members'>
                             <h6>Membros</h6>
-                            <div className='button-new'>
-                                <Link className='button-new-text' to=''>CONVIDAR <Plus className='icon-plus'/></Link>
+                            <div className='button-new' onClick={() => {setOpenModal(true)} }>
+                                <span className='button-new-text'>CONVIDAR <Plus className='icon-plus'/></span>
                             </div>
                             {members.map((member , index) => (
                                 <span key={index}>{member.member_name}</span>

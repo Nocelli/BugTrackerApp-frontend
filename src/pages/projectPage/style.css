@@ -1,10 +1,9 @@
 .project-page{
     box-sizing: border-box;
     background-color: #f2f5f0;
-    height: fit-content;
+    height: 100%;
     width: calc(100% - 4rem);
     min-width: fit-content;
-    min-height: 100%;
     margin: 2rem;
     border-radius: 20px;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.233);
@@ -120,8 +119,12 @@
 }
 
 .button-new .button-new-text{
+    background: transparent;
+    border: none;
     text-decoration: none;
     color: #333333;
+    font-weight: bold;
+    font-size: 1rem;
 }
 
 .button-new .icon-plus{

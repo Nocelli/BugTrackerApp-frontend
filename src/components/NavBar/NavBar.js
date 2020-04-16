@@ -21,7 +21,7 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated, notification }) => {
                     <div className='navbar-items'>
                         <div className='nav-notification'>
                             <span>Notificações</span>
-                            {notification ?
+                            {notification>0 ?
                                 (<span className={'new-notification'}>{notification}</span>)
                                 : null}
                         </div>

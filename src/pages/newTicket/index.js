@@ -22,7 +22,7 @@ const NewTicket = () => {
     const tokenRefresh = localStorage.getItem('x-token-refresh')
 
     useEffect(() => {
-        window.scrollTo(0, 0)
+        document.body.scrollTo(0, 0)
     }, [errors])
 
     const validationSchema = yup.object({

@@ -17,6 +17,7 @@ import NewProject from './pages/newProject'
 import ProjectPage from './pages/projectPage'
 import NewTicket from './pages/newTicket'
 import Page404 from './pages/404page'
+import { date } from 'yup'
 
 const Routes = () => {
 
@@ -29,7 +30,7 @@ const Routes = () => {
             socket = handleLogon()
 
         if (socket) {
-            socket.on("FromAPI", data => setNotification(data))
+            socket.on("FromAPI", data => setNotification(data<1 ? data : null))
 
             if (!isAuthenticated)
                 socket.disconnect()
@@ -41,7 +42,7 @@ const Routes = () => {
     }, [isAuthenticated])
 
     return (
-        <Router>
+        <Router onUpdate={() => window.scrollTo(0, 0)}>
             <NavBar setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated} notification={notification} />
             <Switch>
                 <Route path='/' exact component={LandingPage} />

@@ -53,3 +53,6 @@ button:hover {
     cursor: not-allowed !important;
 }
 
+.hidden{
+    display: none;
+}

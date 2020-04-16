@@ -30,6 +30,7 @@ const Dashboard = () => {
             const response = await api.get('/profile', { headers: { 'x-token': token, 'x-token-refresh': tokenRefresh } })
             setIsSubmitting(false)
             setProjects(response.data)
+            setErrors(null)
             if (response.headers['x-token'])
                 localStorage.setItem('x-token', response.headers['x-token'])
         }
@@ -51,7 +52,7 @@ const Dashboard = () => {
     },[])
 
     useEffect(() => {
-        window.scrollTo(0, 0)
+        document.body.scrollTo(0, 0)
     }, [errors])
 
     return (
