@@ -17,7 +17,6 @@ import NewProject from './pages/newProject'
 import ProjectPage from './pages/projectPage'
 import NewTicket from './pages/newTicket'
 import Page404 from './pages/404page'
-import { date } from 'yup'
 
 const Routes = () => {
 
@@ -43,7 +42,7 @@ const Routes = () => {
 
     return (
         <Router onUpdate={() => window.scrollTo(0, 0)}>
-            <NavBar setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated} notification={notification} />
+            <NavBar setNotification={setNotification}setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated} notification={notification} />
             <Switch>
                 <Route path='/' exact component={LandingPage} />
                 <Route path='/login' exact component={() => (<Logon setIsAuthenticated={setIsAuthenticated} />)} />

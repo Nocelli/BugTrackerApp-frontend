@@ -11,9 +11,9 @@ import { ReactComponent as Avatar } from '../../assets/newIssue.svg'
 
 const NewTicket = () => {
 
-    const statuses = ["Aberto","Em andamento","Para ser testado","Fechado"]
-	const severitys = ["Nenhum", "Crítico", "Grave", "Não-urgente"]
-	const types = ["Subtarefa", "Bug", "Aperfeiçoamento", "Novo recurso", "Tarefa"]
+    const statuses = ["Aberto", "Em andamento", "Para ser testado", "Fechado"]
+    const severitys = ["Nenhum", "Crítico", "Grave", "Não-urgente"]
+    const types = ["Subtarefa", "Bug", "Aperfeiçoamento", "Novo recurso", "Tarefa"]
 
     const { projectId } = useParams()
     const [errors, setErrors] = useState(null)
@@ -30,8 +30,8 @@ const NewTicket = () => {
         summary: yup.string().required().min(8).max(144),
         description: yup.string().required().min(8).max(256),
         status: yup.string().required().oneOf(statuses),
-	    severity: yup.string().required().oneOf(severitys),
-	    type: yup.string().required().oneOf(types),
+        severity: yup.string().required().oneOf(severitys),
+        type: yup.string().required().oneOf(types),
     })
 
     async function handleSubmitting({ name, summary, description, status, severity, type }) {
@@ -46,8 +46,8 @@ const NewTicket = () => {
         catch (err) {
             const { response } = err;
             setErrors(response ? response.data.message || response.data.error : 'Não foi possível estabelecer uma conexão com o servidor')
-        
-            if(response && response.status === 401){
+
+            if (response && response.status === 401) {
                 console.log(response)
                 localStorage.clear()
                 history.push('/')
@@ -58,7 +58,7 @@ const NewTicket = () => {
     return (
         <div className='NewTicket'>
             <ErrorRenderer errors={errors} />
-            <Formik initialValues={{ name: '', summary: '', description: '' ,status: '', severity: '',type:''}}
+            <Formik initialValues={{ name: '', summary: '', description: '', status: '', severity: '', type: '' }}
                 onSubmit={async (data, { setSubmitting }) => {
                     setSubmitting(true)
                     await handleSubmitting(data)
@@ -76,17 +76,17 @@ const NewTicket = () => {
                         <h1>Novo Relato</h1>
                         <h3>Preencha os campos abaixo</h3>
                         <Field name='name' placeholder='Nome' type='input' />
-                        <ErrorMessage render={msg => <ErrorRenderer errors={msg} />} name="name"/>
+                        <ErrorMessage render={msg => <ErrorRenderer errors={msg} />} name="name" />
 
-                        <Field className='summary' name='summary' placeholder='Sumário' component='textarea' maxLength = "100" />
+                        <Field className='summary' name='summary' placeholder='Sumário' component='textarea' maxLength="100" />
                         <ErrorMessage render={msg => <ErrorRenderer errors={msg} />} name="summary" />
-                        
-                        <Field className='desc' name='description' placeholder='Descrição' component='textarea' maxLength = "300" />
+
+                        <Field className='desc' name='description' placeholder='Descrição' component='textarea' maxLength="300" />
                         <ErrorMessage render={msg => <ErrorRenderer errors={msg} />} name="description" />
 
                         <Field className='dropdown' name='status' component='select'>
                             <option value="" label="Escolha um status" />
-                            {statuses.map((status , index) => (
+                            {statuses.map((status, index) => (
                                 <option key={index} value={status} label={status} />
                             ))}
                         </Field>
@@ -108,7 +108,7 @@ const NewTicket = () => {
                         </Field>
                         <ErrorMessage render={msg => <ErrorRenderer errors={msg} />} name="type" />
 
-                        <button type='submit' disabled={isSubmitting}>Criar Relatório</button>
+                        <button type='submit' className={isSubmitting ? 'disabled' : null} disabled={isSubmitting}>{isSubmitting ? 'Carregando...' : 'Criar Relatório'}</button>
                     </Form>
                 )}
             </Formik>

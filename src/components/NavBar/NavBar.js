@@ -5,7 +5,7 @@ import NotificationsDropDown from '../../components/NotificationsDropDown/Notifi
 import logo from '../../assets/bug.svg'
 import './style.css'
 
-const NavBar = ({ setIsAuthenticated, isAuthenticated, notification, setErrors }) => {
+const NavBar = ({ setIsAuthenticated, isAuthenticated, notification, setNotification }) => {
 
     const token = localStorage.getItem('x-token')
     const tokenRefresh = localStorage.getItem('x-token-refresh')
@@ -20,6 +20,7 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated, notification, setErrors }
 
     const handleNotifications = async () => {
         togleNotifications()
+        setNotification(0)
         try {
             if (!token || !tokenRefresh)
                 return
