@@ -4,7 +4,7 @@ import './style.css'
 import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
 import NotificationRenderer from '../../components/NotificationRenderer/NotificationRenderer'
 import yup from '../../validation/Validate'
-import api from '../../services/api'
+import useFetch from '../../services/useFetch'
 
 
 import { ReactComponent as PasswordSvg } from '../../assets/password.svg'
@@ -12,21 +12,19 @@ import { ReactComponent as PasswordSvg } from '../../assets/password.svg'
 
 const ResetPassword = () => {
 
-    const [errors,setErrors] = useState(null)
+    const [getResponse] = useFetch()
     const [notifications,setNotifications] = useState(null)
 
     useEffect(()=>{
         window.scrollTo(0, 0)
-    },[errors,notifications])
+    },[notifications])
 
     async function handleSubmitting({ email }) {
         try {
-            const response = await api.post('password/new', { email })
-            setNotifications(response.data.status)
+            const response = await getResponse('post', '/password/new', { email })
+            setNotifications(response.status)
         }
         catch (err) {
-            const { response } = err;
-            setErrors(response ? response.data.message || response.data.error : 'Não foi possível estabelecer uma conexão com o servidor')
             console.log(err)
         }
     }
@@ -37,7 +35,6 @@ const ResetPassword = () => {
 
     return (
         <>
-            <ErrorRenderer errors={errors} />
             <NotificationRenderer notifications={notifications} />
             <Formik initialValues={{ email: '' }}
                 onSubmit={async (data, { setSubmitting }) => {

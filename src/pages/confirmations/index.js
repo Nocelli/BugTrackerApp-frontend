@@ -4,31 +4,28 @@ import './style.css'
 import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
 import NotificationRenderer from '../../components/NotificationRenderer/NotificationRenderer'
 import yup from '../../validation/Validate'
-import api from '../../services/api'
 
 
 import { ReactComponent as Mailsvg } from '../../assets/Mail_sent_qwwx.svg'
+import useFetch from '../../services/useFetch'
 
 
 const Confirmation = () => {
 
-    const [errors,setErrors] = useState(null)
-    const [notifications,setNotifications] = useState(null)
+    const [getResponse] = useFetch()
+    const [notifications, setNotifications] = useState(null)
 
-    useEffect(()=>{
+    useEffect(() => {
         window.scrollTo(0, 0)
-    },[errors,notifications])
+    }, [notifications])
 
     async function handleSubmitting({ email }) {
         try {
-            setErrors(null)
-            const response = await api.post('confirmations/resendemail', { userEmail: email })
-            setNotifications(response.data.status)
+            const response = await getResponse('post', 'confirmations/resendemail', { userEmail: email })
+            setNotifications(response.status)
         }
         catch (err) {
-            const { response } = err;
-            setErrors(response ? response.data.message || response.data.error : 'Não foi possível estabelecer uma conexão com o servidor')
-            console.log(response)
+            console.log(err)
         }
     }
 
@@ -38,7 +35,6 @@ const Confirmation = () => {
 
     return (
         <>
-            <ErrorRenderer errors={errors} />
             <NotificationRenderer notifications={notifications} />
             <Formik initialValues={{ email: '' }}
                 onSubmit={async (data, { setSubmitting }) => {

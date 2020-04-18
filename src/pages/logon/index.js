@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import { Link, Redirect, useHistory } from 'react-router-dom'
 import './style.css'
-import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
-import api from '../../services/api'
+import useFetch from '../../services/useFetch'
 import devicesImg from '../../assets/undraw_mobile_devices_k1ok.svg'
 import avatar from '../../assets/avatar_male.svg'
 
 const Logon = ({ setIsAuthenticated }) => {
     const [email, setEmail] = useState('')
-    const [errors, setErrors] = useState(null)
+    const [getResponse] = useFetch()
     const [password, setPassword] = useState('')
     const [isSubmiting, setIsSubmiting] = useState(false)
     const history = useHistory()
@@ -20,32 +19,24 @@ const Logon = ({ setIsAuthenticated }) => {
             return <Redirect to='/dashboard' />
     }
 
-    async function handleLogin(e) {
+    const handleLogin = async e => {
         e.preventDefault()
-
         try {
-            setErrors(null)
             setIsSubmiting(true)
-            const response = await api.post('login', { email, password })
-
-            localStorage.setItem('x-token', response.headers['x-token'])
-            localStorage.setItem('x-token-refresh', response.headers['x-token-refresh'])
-            localStorage.setItem('x-userId', response.data['userId'])
+            const response = await getResponse('post', '/login', { email, password })
+            localStorage.setItem('x-userId', response['userId'])
             setIsSubmiting(false)
             setIsAuthenticated(true)
             history.push('/dashboard')
-        }
-        catch (error) {
+        } 
+        catch (error){
             setIsSubmiting(false)
-            const { response } = error;
-            setErrors(response ? response.data.message || response.data.error : 'Não foi possível estabelecer uma conexão com o servidor')
         }
     }
 
     return (
         <>
             {handleRedirect()}
-            <ErrorRenderer errors={errors} />
             <div className="logon-container">
                 <div className='menu-holder'>
                     <div className='menu-text'>

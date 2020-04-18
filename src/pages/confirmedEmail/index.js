@@ -1,37 +1,31 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import './style.css'
-import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
-import api from '../../services/api'
-
-
 import { ReactComponent as Mailsvg } from '../../assets/Mail_sent_qwwx.svg'
+import useFetch from '../../services/useFetch'
 
 
 const ConfirmedEmail = () => {
 
-    const [errors, setErrors] = useState(null)
+    const [getResponse] = useFetch()
     const { token } = useParams()
 
     useEffect(() => {
-         handleSubmitting(token)
+        handleSubmitting(token)
     }, [token])
 
     async function handleSubmitting(token) {
         try {
-            if(token)
-                await api.get(`confirmations/validation/${token}`) 
+            if (token)
+                await getResponse('get', `confirmations/validation/${token}`)
         }
         catch (err) {
-            const { response } = err;
-            setErrors(response ? response.data.message || response.data.error : 'Não foi possível estabelecer uma conexão com o servidor')
             console.log(err)
         }
     }
 
     return (
         <>
-            <ErrorRenderer errors={errors} />
             <div className='confirmations'>
                 <div className='form'>
                     <Mailsvg className='img-email' />

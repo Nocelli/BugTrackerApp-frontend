@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import api from '../../services/api'
 import './style.css'
 import { FiChevronsLeft as ArrowLeft, FiPlusCircle as Plus } from "react-icons/fi";
-import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
 import ProjectTicket from '../../components/ProjectTicket/ProjectTicket'
 import ProjecMember from '../../components/ProjectMember/ProjectMember'
 import NewMemberModal from '../../components/newMemberModal/newMemberModal'
-import { Link, useHistory, useParams } from 'react-router-dom'
+import useFetch from '../../services/useFetch'
+import { Link, useParams } from 'react-router-dom'
 
 const ProjectPage = () => {
 
@@ -14,34 +13,18 @@ const ProjectPage = () => {
     const [project, setProject] = useState({})
     const [members, setMembers] = useState([])
     const [tickets, setTickets] = useState([])
-    const [errors, setErrors] = useState(null)
-    const history = useHistory()
+    const [getResponse] = useFetch()
     const { projectId } = useParams()
-    const token = localStorage.getItem('x-token')
-    const tokenRefresh = localStorage.getItem('x-token-refresh')
 
     const handleLoadProject = async () => {
         try {
-            if (!token || !tokenRefresh)
-                return
-
-            const response = await api.get(`/profile/project/${projectId}`, { headers: { 'x-token': token, 'x-token-refresh': tokenRefresh } })
-            setProject(response.data.project)
-            setTickets(response.data.tickets)
-            setMembers(response.data.members)
-
-            if (response.headers['x-token'])
-                localStorage.setItem('x-token', response.headers['x-token'])
+            const response = await getResponse('get', `/profile/project/${projectId}`)
+            setProject(response.project)
+            setTickets(response.tickets)
+            setMembers(response.members)
         }
         catch (err) {
-            const { response } = err
-            setErrors(response ? response.data.message || response.data.error : 'Não foi possível estabelecer uma conexão com o servidor')
-
-            if (response && response.status === 401) {
-                console.log(response)
-                localStorage.clear()
-                history.push('/')
-            }
+            console.log(err);
         }
     }
 
@@ -49,14 +32,9 @@ const ProjectPage = () => {
         handleLoadProject()
     }, [])
 
-    useEffect(() => {
-        document.body.scrollTo(0, 0);
-    }, [errors])
-
     return (
         <>  
-            <NewMemberModal openModal={openModal} projectId={projectId} setErrors={setErrors} setOpenModal={setOpenModal}/>
-            <ErrorRenderer errors={errors}/>
+            <NewMemberModal openModal={openModal} projectId={projectId} setOpenModal={setOpenModal}/>
             <div className='project-page'>
                 <div className='back-button'>
                     <ArrowLeft />

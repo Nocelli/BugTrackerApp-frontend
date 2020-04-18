@@ -1,45 +1,21 @@
 import React, { useState } from 'react'
-import api from '../../services/api'
 import './style.css'
+import useFetch from '../../services/useFetch'
 
 const Notification = ({ id, sender, project, role, date }) => {
     
-    const token = localStorage.getItem('x-token')
-    const tokenRefresh = localStorage.getItem('x-token-refresh')
+    const [getResponse] = useFetch()
     const inviteDate = new Date(date * 1000).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' })
     const [gotUserInput,setGotUserInput] = useState(false)
 
-    const handleAccept = async () => {
+    const handleInput = async input => {
         setGotUserInput(true)
         try {
-            const response = await api.post(`/member/accept`, { notificationId:id },{ headers: { 'x-token': token, 'x-token-refresh': tokenRefresh }})
-            if(response.headers['x-token'])
-                localStorage.setItem('x-token', response.headers['x-token'])
+                await getResponse('post', `/member/${input}`, { notificationId:id })
         }
         catch (err) {
-            const { response } = err;
-
-            if(response && response.status === 401){
-                console.log(response)
-                localStorage.clear()
-            }
-        }
-    }
-
-    const handleDeny = async () => {
-        setGotUserInput(true)
-        try {
-            const response = await api.post(`/member/deny`, { notificationId:id },{ headers: { 'x-token': token, 'x-token-refresh': tokenRefresh }})
-            if(response.headers['x-token'])
-                localStorage.setItem('x-token', response.headers['x-token'])
-        }
-        catch (err) {
-            const { response } = err;
-
-            if(response && response.status === 401){
-                console.log(response)
-                localStorage.clear()
-            }
+            console.log(err);
+            
         }
     }
 
@@ -54,8 +30,8 @@ const Notification = ({ id, sender, project, role, date }) => {
                 <h1>{`"${role}"`}</h1>
             </span>
             <div className='buttons'>
-                <button className='accept' onClick={handleAccept}>Aceitar</button>
-                <button className='deny' onClick={handleDeny}>Recusar</button>
+                <button className='accept' onClick={()=>{handleInput('accept')}}>Aceitar</button>
+                <button className='deny' onClick={()=>{handleInput('deny')}}>Recusar</button>
             </div>
         </div>
     )

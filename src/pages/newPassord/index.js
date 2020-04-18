@@ -4,41 +4,33 @@ import './style.css'
 import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
 import NotificationRenderer from '../../components/NotificationRenderer/NotificationRenderer'
 import yup from '../../validation/Validate'
-import api from '../../services/api'
-
-
 import { ReactComponent as PasswordSvg } from '../../assets/password.svg'
 import { useParams } from 'react-router-dom'
+import useFetch from '../../services/useFetch'
 
 
 const NewPassword = () => {
 
-    const [errors, setErrors] = useState(null)
+    const [getResponse,setErrors] = useFetch()
     const [notifications, setNotifications] = useState(null)
     const [hasFinished, setHasFinished] = useState(false)
     const { token } = useParams()
 
     useEffect(() => {
         window.scrollTo(0, 0)
-    }, [errors, notifications])
+    }, [notifications])
 
     async function handleSubmitting({ password , confirmPass }) {
         try {
-            setErrors(null)
             if (password !== confirmPass){
                 setErrors('Por favor, confirme sua senha antes de prosseguir')
                 return
             }
-
-            const response = await api.put('password/new',
-                { password },
-                { headers: { 'x-token': token } })
-            setNotifications(response.data.status ? response.data.status : 'Senha alterada com sucesso!')
+            const response = await getResponse('put', 'password/new', { password, token })
+            setNotifications(response.status ? response.status : 'Senha alterada com sucesso!')
             setHasFinished(true)
         }
         catch (err) {
-            const { response } = err;
-            setErrors(response ? response.data.message || response.data.error : 'Não foi possível estabelecer uma conexão com o servidor')
             console.log(err)
         }
     }
@@ -49,7 +41,6 @@ const NewPassword = () => {
 
     return (
         <>
-            <ErrorRenderer errors={errors} />
             <NotificationRenderer notifications={notifications} />
             <Formik initialValues={{ password: '' ,confirmPass: ''}}
                 onSubmit={async (data, { setSubmitting }) => {

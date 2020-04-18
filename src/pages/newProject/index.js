@@ -1,24 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import './style.css'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import { FiChevronsLeft as ArrowLeft } from "react-icons/fi";
-import api from '../../services/api'
 import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
 import yup from '../../validation/Validate'
 
 import { ReactComponent as Avatar } from '../../assets/newproject.svg'
+import useFetch from '../../services/useFetch';
 
 const NewProject = () => {
 
-    const [errors, setErrors] = useState(null)
     const history = useHistory()
-    const token = localStorage.getItem('x-token')
-    const tokenRefresh = localStorage.getItem('x-token-refresh')
-
-    useEffect(() => {
-        document.body.scrollTo(0, 0)
-    }, [errors])
+    const [getResponse] = useFetch()
 
     const validationSchema = yup.object({
         name: yup.string().required().max(50),
@@ -28,28 +22,17 @@ const NewProject = () => {
 
     async function handleSubmitting({ name, summary, description }) {
         try {
-            setErrors(null)
-            const response = await api.post('/project', { name, summary, description },{ headers: { 'x-token': token, 'x-token-refresh': tokenRefresh }})
-            if(response.headers['x-token'])
-                localStorage.setItem('x-token', response.headers['x-token'])
+            const response = await getResponse('post', '/project', { name, summary, description })
             if (response)
                 history.push('/dashboard')
         }
         catch (err) {
-            const { response } = err;
-            setErrors(response ? response.data.message || response.data.error : 'Não foi possível estabelecer uma conexão com o servidor')
-        
-            if(response && response.status === 401){
-                console.log(response)
-                localStorage.clear()
-                history.push('/')
-            }
+            console.log(err)
         }
     }
 
     return (
         <div className='NewProject'>
-            <ErrorRenderer errors={errors} />
             <Formik initialValues={{ name: '', summary: '', description: '' }}
                 onSubmit={async (data, { setSubmitting }) => {
                     setSubmitting(true)

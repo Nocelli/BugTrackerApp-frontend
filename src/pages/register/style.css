@@ -3,7 +3,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    background-image: url(../../assets/signup_background.svg);
+    background-position: center;
+    background-size: auto;
+    background-repeat: no-repeat;
 }
 
 .form-container .form{
@@ -21,13 +24,6 @@
 
 .form-container .form h3{
     color: #333;
-}
-
-.form-container .background{
-    width: 90vw;
-    position: absolute;
-    margin-top: 15vh;
-    z-index: -1;
 }
 
 .form-container .form .signup-avatar{

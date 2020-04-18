@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import './style.css'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
-import api from '../../services/api'
-import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
+import useFetch from '../../services/useFetch'
 import yup from '../../validation/Validate'
 import { FiChevronsLeft as ArrowLeft } from "react-icons/fi";
+import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
 
-import { ReactComponent as Background } from '../../assets/signup_background.svg'
 import { ReactComponent as Avatar } from '../../assets/avatar.svg'
 
 const Register = () => {
 
-    const [errors, setErrors] = useState(null)
     const history = useHistory()
-
-    useEffect(()=>{
-        window.scrollTo(0, 0)
-    },[errors])
+    const [getResponse,setErrors] = useFetch()
 
     const validationSchema = yup.object({
         email: yup.string().email().required(),
@@ -27,25 +22,22 @@ const Register = () => {
 
     async function handleSubmitting({ name, email, password, confirmPass }) {
         try {
-            setErrors(null)
             if (password !== confirmPass){
                 setErrors('Por favor, confirme sua senha antes de prosseguir')
                 return
             }
-            const response = await api.post('users', { name, email, password })
+            const response = await getResponse('post', '/users', { name, email, password })
+            
             if (response)
                 history.push('/confirmations')
         }
         catch (err) {
-            const { response } = err;
-            setErrors(response ? response.data.message || response.data.error : 'Não foi possível estabelecer uma conexão com o servidor')
+            console.log(err);
         }
     }
 
     return (
         <div className='form-container'>
-            <Background className='background' />
-            <ErrorRenderer errors={errors} />
             <Formik initialValues={{ email: '', name: '', password: '', confirmPass: '' }}
                 onSubmit={async (data, { setSubmitting }) => {
                     setSubmitting(true)

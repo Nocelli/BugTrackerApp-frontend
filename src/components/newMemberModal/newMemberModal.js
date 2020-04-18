@@ -2,17 +2,15 @@ import React from 'react'
 import './style.css'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import { FiChevronsLeft as ArrowLeft } from "react-icons/fi";
-import api from '../../services/api'
 import ErrorRenderer from '../../components/ErrorRenderer/ErrorRenderer'
 import yup from '../../validation/Validate'
 
 import { ReactComponent as Avatar } from '../../assets/selecting_team.svg'
+import useFetch from '../../services/useFetch';
 
-const NewMemberModal = ({ openModal, projectId, setErrors, setOpenModal }) => {
+const NewMemberModal = ({ openModal, projectId, setOpenModal }) => {
 
-    const token = localStorage.getItem('x-token')
-    const tokenRefresh = localStorage.getItem('x-token-refresh')
-
+    const [getResponse] = useFetch()
     const validationSchema = yup.object({
         email: yup.string().required().email(),
         role: yup.number().required()
@@ -20,20 +18,12 @@ const NewMemberModal = ({ openModal, projectId, setErrors, setOpenModal }) => {
 
     async function handleSubmitting({ email, role }) {
         try {
-            setErrors(null)
-            const response = await api.post(`/invite/${projectId}`, { userEmail: email, roleId: role }, { headers: { 'x-token': token, 'x-token-refresh': tokenRefresh } })
-            if (response.headers['x-token'])
-                localStorage.setItem('x-token', response.headers['x-token'])
+            const response = await getResponse('post', `/invite/${projectId}`, { userEmail: email, roleId: role })
             if (response)
                 setOpenModal(false)
         }
         catch (err) {
-            const { response } = err;
-            setErrors(response ? response.data.message || response.data.error : 'Não foi possível estabelecer uma conexão com o servidor')
-
-            if (response && response.status === 401) {
-                localStorage.clear()
-            }
+            console.log(err)
             setOpenModal(false)
         }
     }

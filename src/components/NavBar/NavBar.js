@@ -1,45 +1,36 @@
-import React, { useState } from 'react'
-import api from '../../services/api'
-import { Link, useHistory } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import NotificationsDropDown from '../../components/NotificationsDropDown/NotificationsDropDown'
 import logo from '../../assets/bug.svg'
 import './style.css'
+import useFetch from '../../services/useFetch'
 
 const NavBar = ({ setIsAuthenticated, isAuthenticated, notification, setNotification }) => {
 
-    const token = localStorage.getItem('x-token')
-    const tokenRefresh = localStorage.getItem('x-token-refresh')
+    let location = useLocation()
+    const [getResponse,setErrors] = useFetch()
     const [notifications, setNorifications] = useState([])
     const [isNotificationsShowing, setIsNotificationsShowing] = useState(false)
-    const history = useHistory()
 
     function handleLogoff() {
-        localStorage.clear()
         setIsAuthenticated(false)
+        localStorage.clear()
     }
+
+    useEffect(() => {
+        document.body.scrollTo(0, 0)
+        setErrors(null)
+    }, [location])
 
     const handleNotifications = async () => {
         togleNotifications()
         setNotification(0)
         try {
-            if (!token || !tokenRefresh)
-                return
-
-            const response = await api.get(`/notifications`, { headers: { 'x-token': token, 'x-token-refresh': tokenRefresh } })
-            setNorifications(response.data)
-            console.log(response.data)
-
-            if (response.headers['x-token'])
-                localStorage.setItem('x-token', response.headers['x-token'])
+            const response = await getResponse('get', '/notifications')
+            setNorifications(response)
         }
         catch (err) {
-            const { response } = err
-            console.log(response)
-
-            if (response && response.status === 401) {
-                localStorage.clear()
-                history.push('/')
-            }
+            console.log(err)
         }
     }
 
