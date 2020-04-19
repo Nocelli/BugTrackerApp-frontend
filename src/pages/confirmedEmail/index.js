@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import './style.css'
 import { ReactComponent as Mailsvg } from '../../assets/Mail_sent_qwwx.svg'
@@ -7,14 +7,10 @@ import useFetch from '../../services/useFetch'
 
 const ConfirmedEmail = () => {
 
-    const [getResponse] = useFetch()
+    const [getResponse] = useCallback(useFetch(),[]) 
     const { token } = useParams()
 
-    useEffect(() => {
-        handleSubmitting(token)
-    }, [token])
-
-    async function handleSubmitting(token) {
+    const handleSubmitting = useCallback(async (token) => {
         try {
             if (token)
                 await getResponse('get', `confirmations/validation/${token}`)
@@ -22,7 +18,11 @@ const ConfirmedEmail = () => {
         catch (err) {
             console.log(err)
         }
-    }
+    },[getResponse]) 
+
+    useEffect(() => {
+        handleSubmitting(token)
+    }, [token,handleSubmitting])
 
     return (
         <>

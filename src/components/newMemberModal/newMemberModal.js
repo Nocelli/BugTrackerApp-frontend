@@ -63,4 +63,4 @@ const NewMemberModal = ({ openModal, projectId, setOpenModal }) => {
     )
 }
 
-export default NewMemberModal
+export default React.memo(NewMemberModal)

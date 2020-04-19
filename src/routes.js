@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import NavBar from './components/NavBar/NavBar'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
@@ -6,7 +6,6 @@ import handleLogon from './services/socketHandler'
 import checkAuth from './Auth/CheckAuth'
 import { ErrorContext } from './errors/ErrorContext'
 import ErrorRenderer from './components/ErrorRenderer/ErrorRenderer'
-
 
 import Logon from './pages/logon'
 import LandingPage from './pages/landingpage'
@@ -21,24 +20,24 @@ import ProjectPage from './pages/projectPage'
 import NewTicket from './pages/newTicket'
 import Page404 from './pages/404page'
 
+let socket
 const Routes = () => {
 
-    let socket
-    const [notification, setNotification] = useState(false)
+    const [newNotification, setNewNotification] = useState(false)
     const [isAuthenticated, setIsAuthenticated] = useState(checkAuth())
     const [errors, setErrors] = useState(null)
 
-    function handleSocket() {
+    const handleSocket = useCallback(() => {
         if (!socket)
             socket = handleLogon()
 
         if (socket) {
-            socket.on("FromAPI", data => setNotification(data > 0 ? data : null))
+            socket.on("FromAPI", data => setNewNotification(data > 0 ? data : null))
 
             if (!isAuthenticated)
                 socket.disconnect()
         }
-    }
+    },[isAuthenticated])
 
     useEffect(() => {
         document.body.scrollTo(0, 0)
@@ -46,12 +45,12 @@ const Routes = () => {
 
     useEffect(() => {
         handleSocket()
-    }, [isAuthenticated])
+    }, [handleSocket])
 
     return (
         <Router>
             <ErrorContext.Provider value={{ setErrors: setErrors }}>
-                <NavBar setNotification={setNotification} setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated} notification={notification} />
+                <NavBar setNewNotification={setNewNotification} setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated} newNotification={newNotification} />
                 <ErrorRenderer errors={errors} />
                 <Switch>
                     <Route path='/' exact component={LandingPage} />

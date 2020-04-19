@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import './style.css'
 import { FiChevronsLeft as ArrowLeft, FiPlusCircle as Plus } from "react-icons/fi";
 import ProjectTicket from '../../components/ProjectTicket/ProjectTicket'
@@ -13,10 +13,10 @@ const ProjectPage = () => {
     const [project, setProject] = useState({})
     const [members, setMembers] = useState([])
     const [tickets, setTickets] = useState([])
-    const [getResponse] = useFetch()
+    const [getResponse] = useCallback(useFetch(),[]) 
     const { projectId } = useParams()
 
-    const handleLoadProject = async () => {
+    const handleLoadProject = useCallback(async () => {
         try {
             const response = await getResponse('get', `/profile/project/${projectId}`)
             setProject(response.project)
@@ -26,11 +26,11 @@ const ProjectPage = () => {
         catch (err) {
             console.log(err);
         }
-    }
+    },[projectId,getResponse]) 
 
     useEffect(() => {
         handleLoadProject()
-    }, [])
+    }, [handleLoadProject])
 
     return (
         <>  

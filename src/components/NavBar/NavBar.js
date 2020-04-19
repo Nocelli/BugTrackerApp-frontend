@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import NotificationsDropDown from '../../components/NotificationsDropDown/NotificationsDropDown'
 import logo from '../../assets/bug.svg'
 import './style.css'
 import useFetch from '../../services/useFetch'
 
-const NavBar = ({ setIsAuthenticated, isAuthenticated, notification, setNotification }) => {
+
+const NavBar = ({ setIsAuthenticated, isAuthenticated, newNotification, setNewNotification }) => {
 
     let location = useLocation()
-    const [getResponse,setErrors] = useFetch()
+    const [getResponse, setErrors] = useCallback(useFetch(), [])
     const [notifications, setNorifications] = useState([])
     const [isNotificationsShowing, setIsNotificationsShowing] = useState(false)
 
@@ -20,11 +21,11 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated, notification, setNotifica
     useEffect(() => {
         document.body.scrollTo(0, 0)
         setErrors(null)
-    }, [location])
+    }, [location,setErrors])
 
     const handleNotifications = async () => {
         togleNotifications()
-        setNotification(0)
+        setNewNotification(0)
         try {
             const response = await getResponse('get', '/notifications')
             setNorifications(response)
@@ -53,8 +54,8 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated, notification, setNotifica
                         <hr className='divider' width="1" size="30" />
                         <div className='nav-notification' onClick={handleNotifications}>
                             <span>Notificações</span>
-                            {notification > 0 ?
-                                (<span className={'new-notification'}>{notification}</span>)
+                            {newNotification > 0 ?
+                                (<span className={'new-notification'}>{newNotification}</span>)
                                 : null}
                         </div>
                         <hr className='divider' width="1" size="30" />
@@ -82,4 +83,4 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated, notification, setNotifica
         </>
     )
 }
-export default NavBar
+export default React.memo(NavBar)

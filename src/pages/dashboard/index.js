@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import useFetch from '../../services/useFetch'
 import DashboardItem from '../../components/DashboardItem/DashboardItem'
 
@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom'
 
 const Dashboard = () => {
     const [projects, setProjects] = useState([])
-    const [getResponse] = useFetch()
+    const [getResponse] = useCallback(useFetch(),[]) 
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const history = useHistory()
@@ -16,7 +16,7 @@ const Dashboard = () => {
         history.push('/project/new')
     }
 
-    const handleLoadProjects = async () => {
+    const handleLoadProjects = useCallback(async () => {
         setIsSubmitting(true)
         try {
             const response = await getResponse('get', '/profile')
@@ -26,11 +26,11 @@ const Dashboard = () => {
         catch (error) {
             setIsSubmitting(false)
         }
-    }
+    },[getResponse]) 
 
     useEffect(() => {
         handleLoadProjects()
-    }, [])
+    }, [handleLoadProjects])
 
     return (
         <div className='dashboard-container'>

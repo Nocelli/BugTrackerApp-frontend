@@ -98,4 +98,4 @@ const NewTicket = () => {
     )
 }
 
-export default NewTicket
+export default React.memo(NewTicket)
