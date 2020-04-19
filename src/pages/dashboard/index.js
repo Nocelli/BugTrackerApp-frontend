@@ -42,7 +42,8 @@ const Dashboard = () => {
                     <button onClick={handleRedirect}>Novo</button>
                 </div>
                 <div className='projects-container'>
-                    {!projects ? <h1 className='no-projects'>Nada ainda...Crie um projeto para começar!</h1> : projects.map(project => (
+                    {!projects[0] ? <h1 className='no-projects'>Nada ainda...Crie um projeto para começar!</h1> :
+                     projects.map(project => (
                         <DashboardItem key={project.id} project={project} />
                     ))}
                 </div>

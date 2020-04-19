@@ -36,3 +36,15 @@
     border: none;
     border-radius: 16px;
 }
+
+@media only screen and (max-width: 425px) {
+    .notifications h1{
+        font-size: 1.5rem;
+    }
+    
+    .close-notifications{
+        top: 0.5rem;
+        height: 2rem;
+        width: auto;
+    }
+  }
