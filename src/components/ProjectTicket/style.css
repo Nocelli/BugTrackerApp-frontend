@@ -27,3 +27,34 @@
     color: #f5f5f7;
     text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9;
 }
+
+@media screen and (max-width: 950px) {
+    .ticket-name{
+        grid-area: name;
+    }
+    .ticket-date{
+        grid-area: date;
+    }
+    .ticket-type{
+        grid-area: type;
+    } 
+    .ticket-status{
+        grid-area: status;
+    }   
+    .ticket-severity{
+        grid-area: severity;
+    }
+    .ticket-holder{
+        display: grid;
+        grid-template-areas:
+            "name . date"
+            "type status severity";
+    }
+  }
+
+  @media screen and (max-width: 375px) {
+    .ticket-holder{
+        width: 100%;
+        font-size: smaller;
+    }
+  }

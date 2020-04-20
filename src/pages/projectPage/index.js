@@ -42,7 +42,7 @@ const ProjectPage = () => {
                         Voltar</Link>
                 </div>
                 <div className='project-holder'>
-                    <h1>Título: {project.project_name}</h1>
+                    <h1>{project.project_name}</h1>
                     <h2>Sumário:</h2>
                     <h3>{project.project_summary}</h3>
                     <h4>Descrição: </h4>

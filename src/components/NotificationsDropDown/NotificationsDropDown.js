@@ -9,8 +9,11 @@ const NotificationsDropDown = ({ notifications, setShowing }) => {
     return (
         <div className='notifications'>
             <div className='notifications-holder'>
-                <Close className='close-notifications' onClick={() => setShowing(false)} ></Close>
-                <h1>Notificações</h1>
+                <div className='notifications-menu-title'>
+                    <Close className='close-notifications' onClick={() => setShowing(false)} ></Close>
+                    <h1>Notificações</h1>
+                    <h2>Suas notificações serão mostradas aqui</h2>
+                </div>
                 {notifications.map((notification, index) => (
                     <Notification
                         id={notification.notification_id}
@@ -18,8 +21,7 @@ const NotificationsDropDown = ({ notifications, setShowing }) => {
                         project={notification.project_name}
                         role={notification.role_name}
                         date={notification.notification_creationdate}
-                        key={index} />
-                ))}
+                        key={index} />))}
             </div>
         </div>
     )

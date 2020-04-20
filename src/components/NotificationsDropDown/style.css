@@ -1,6 +1,6 @@
 .notifications{
     background-color: #F2F5F0;
-    border: #333 solid;
+    border: #D2D5D0 solid;
     border-top: 0;
     border-right: 0;
     text-align: center;
@@ -16,30 +16,63 @@
     top: 0px;
     right: 0;
     height: fit-content;
+
+    max-height:100%;
+    overflow:auto;
 }
 
 .notifications-holder{
-    margin-top: 1rem;
+    padding-top: 1rem;
     font-size: .5rem;
-    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.notifications-menu-title{
+    background: #f0f0f5;
+    border: none;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.233);
+    align-items: center;
+    width: 95%;
+    border-radius: 16px;
+    position: relative;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
+
+.notifications-menu-title h1{
+    color: #1D1D1F;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.notifications-menu-title h2{
+    color: #333;
+    font-size: .8rem;
 }
 
 .close-notifications{
     cursor: pointer;
     position: absolute;
-    top: 1rem;
-    left: 1rem;
-    height: 1.2rem;
+    top: 0;
+    left: 0;
+    height: 100%;
     width: auto;
     color: #fff;
     background-color: #cc0000;
     border: none;
-    border-radius: 16px;
+    border-radius: 50%;
 }
 
 @media only screen and (max-width: 425px) {
-    .notifications h1{
-        font-size: 1.5rem;
+    .notifications-menu-title h1{
+        font-size: 1.5rem !important;
+    }
+
+    .notifications-menu-title h2{
+        font-size: 1rem !important;
     }
     
     .close-notifications{
