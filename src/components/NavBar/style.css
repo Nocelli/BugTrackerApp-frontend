@@ -26,6 +26,10 @@
     text-decoration: none;
 }
 
+.navbar .navbar-items .nav-item:hover{
+    opacity: 0.8;
+}
+
 .nav-link:hover{
     opacity: 0.8;
 }
@@ -54,6 +58,11 @@
     color: #f5f5f0;
     text-decoration: none;
     cursor: pointer;
+}
+
+.nav-link .nav-logoff-svg{
+    top: .125em;
+    position: relative;
 }
 
 .navbar .navbar-items .divider{

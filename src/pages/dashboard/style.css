@@ -4,6 +4,7 @@
     align-items: center;
     flex-direction: column;
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .dashboard{
@@ -83,6 +84,20 @@
     text-align: center;
     width: 40%;
     min-width: 360px;
+    position: relative;
+}
+
+.dashboard .projects-container .project .project-delete{
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    font-size: 2em;
+    color: #333;
+    cursor: pointer;
+}
+
+.dashboard .projects-container .project .project-delete:hover{
+    filter: opacity(80%);
 }
 
 .dashboard .projects-container .project .project-title{

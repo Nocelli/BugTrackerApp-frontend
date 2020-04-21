@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import NotificationsDropDown from '../../components/NotificationsDropDown/NotificationsDropDown'
+import { FiLogOut as Logout } from "react-icons/fi";
 import logo from '../../assets/bug.svg'
 import './style.css'
 import useFetch from '../../services/useFetch'
@@ -55,14 +56,14 @@ const NavBar = ({ newNotification, setNewNotification }) => {
                         </Link>
                         <hr className='divider' width="1" size="30" />
                         <div className='nav-notification' onClick={handleNotifications}>
-                            <span>Notificações</span>
+                            <span className='nav-item'>Notificações</span>
                             {newNotification > 0 ?
                                 (<span className={'new-notification'}>{newNotification}</span>)
                                 : null}
                         </div>
                         <hr className='divider' width="1" size="30" />
                         <a className='nav-link' href="/" onClick={() => (handleLogoff())}>
-                            SAIR</a>
+                            SAIR <Logout className='nav-logoff-svg'/></a>
                     </div>
                 </nav>) :
                 (<nav className="navbar">
