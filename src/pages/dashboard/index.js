@@ -20,8 +20,10 @@ const Dashboard = () => {
         setIsSubmitting(true)
         try {
             const response = await getResponse('get', '/profile')
-            setProjects(response)
-            setIsSubmitting(false)
+            if(response){
+                setProjects(response)
+                setIsSubmitting(false)
+            }
         }
         catch (error) {
             setIsSubmitting(false)
@@ -36,7 +38,7 @@ const Dashboard = () => {
         <div className='dashboard-container'>
             <div className='dashboard'>
                 <h1 className='dashboard-title'>Todos os projetos</h1>
-                <h2 className='dashboard-subtitle'>Clique em 'mais' para ver mais opções.</h2>
+                <h2 className='dashboard-subtitle'>Clique em 'mais' depois de criar um projeto para ver mais opções.</h2>
                 <div className="buttons">
                     <button className={isSubmitting ? 'disabled' : null} onClick={handleLoadProjects} disabled={isSubmitting}>{isSubmitting ? `Atualizando...` : `Atualizar`}</button>
                     <button onClick={handleRedirect}>Novo</button>

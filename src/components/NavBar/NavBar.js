@@ -1,20 +1,22 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import NotificationsDropDown from '../../components/NotificationsDropDown/NotificationsDropDown'
 import logo from '../../assets/bug.svg'
 import './style.css'
 import useFetch from '../../services/useFetch'
+import { AuthContext } from '../../Auth/AuthContext'
 
 
-const NavBar = ({ setIsAuthenticated, isAuthenticated, newNotification, setNewNotification }) => {
+const NavBar = ({ newNotification, setNewNotification }) => {
 
     let location = useLocation()
     const [getResponse, setErrors] = useCallback(useFetch(), [])
     const [notifications, setNorifications] = useState([])
+    const { setAuth, isAuth } = useContext(AuthContext)
     const [isNotificationsShowing, setIsNotificationsShowing] = useState(false)
 
     function handleLogoff() {
-        setIsAuthenticated(false)
+        setAuth()
         localStorage.clear()
     }
 
@@ -41,7 +43,7 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated, newNotification, setNewNo
 
     return (
         <>
-            {isAuthenticated ? (
+            {isAuth ? (
                 <nav className="navbar">
                     <Link to='/dashboard' className='logo' >
                         <img className='logo-img' src={logo} alt='logo' />

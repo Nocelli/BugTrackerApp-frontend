@@ -14,7 +14,7 @@ const NotificationsDropDown = ({ notifications, setShowing }) => {
                     <h1>Notificações</h1>
                     <h2>Suas notificações serão mostradas aqui</h2>
                 </div>
-                {notifications.map((notification, index) => (
+                {notifications ?? notifications.map((notification, index) => (
                     <Notification
                         id={notification.notification_id}
                         sender={notification.senders_name}

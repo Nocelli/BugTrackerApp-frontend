@@ -136,10 +136,6 @@
     *{
         font-size: 12px;
     }
-    .project-page .back-button{
-       /*  margin-top: -1.8rem;
-        margin-left: -1.4rem; */
-    }
   }
 
 @media screen and (max-width: 425px) {
@@ -149,6 +145,7 @@
     .project-page{
         width: 100%;
         margin-left: 0;
+        margin-top: 3rem;
     }
   }
 

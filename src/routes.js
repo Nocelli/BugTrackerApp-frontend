@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import NavBar from './components/NavBar/NavBar'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 import handleLogon from './services/socketHandler'
-import checkAuth from './Auth/CheckAuth'
+import CheckAuth from './Auth/CheckAuth'
 import { ErrorContext } from './errors/ErrorContext'
+import { AuthContext } from './Auth/AuthContext'
 import ErrorRenderer from './components/ErrorRenderer/ErrorRenderer'
 
 import Logon from './pages/logon'
@@ -24,20 +25,20 @@ let socket
 const Routes = () => {
 
     const [newNotification, setNewNotification] = useState(false)
-    const [isAuthenticated, setIsAuthenticated] = useState(checkAuth())
+    const [isAuth, setAuth] = useState(CheckAuth())
     const [errors, setErrors] = useState(null)
-
+    const setIsAuth = () => setAuth(CheckAuth())
     const handleSocket = useCallback(() => {
-        if (!socket)
+        if (!socket && isAuth)
             socket = handleLogon()
 
         if (socket) {
-            socket.on("FromAPI", data => setNewNotification(data > 0 ? data : null))
-
-            if (!isAuthenticated)
+            if (!isAuth)
                 socket.disconnect()
+                
+            socket.on("FromAPI", data => setNewNotification(data > 0 ? data : null))
         }
-    },[isAuthenticated])
+    }, [isAuth])
 
     useEffect(() => {
         document.body.scrollTo(0, 0)
@@ -50,22 +51,24 @@ const Routes = () => {
     return (
         <Router>
             <ErrorContext.Provider value={{ setErrors: setErrors }}>
-                <NavBar setNewNotification={setNewNotification} setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated} newNotification={newNotification} />
-                <ErrorRenderer errors={errors} />
-                <Switch>
-                    <Route path='/' exact component={LandingPage} />
-                    <Route path='/login' exact component={() => (<Logon setIsAuthenticated={setIsAuthenticated} />)} />
-                    <Route path='/register' exact component={Register} />
-                    <Route path='/confirmations' exact component={Confirmations} />
-                    <Route path='/confirmed/:token' exact component={ConfirmedEmail} />
-                    <Route path='/password' exact component={ResetPassword} />
-                    <Route path='/password/new/:token' exact component={NewPassword} />
-                    <ProtectedRoute path='/dashboard' exact component={Dashboard} />
-                    <ProtectedRoute path='/project/new' exact component={NewProject} />
-                    <ProtectedRoute path='/project/:projectId' exact component={ProjectPage} />
-                    <ProtectedRoute path='/project/:projectId/ticket/new' exact component={NewTicket} />
-                    <Route exact component={Page404} />
-                </Switch>
+                <AuthContext.Provider value={{ setAuth: setIsAuth, isAuth: isAuth}}>
+                    <NavBar setNewNotification={setNewNotification} newNotification={newNotification} />
+                    <ErrorRenderer errors={errors} />
+                    <Switch>
+                        <Route path='/' exact component={LandingPage} />
+                        <Route path='/login' exact component={Logon} />
+                        <Route path='/register' exact component={Register} />
+                        <Route path='/confirmations' exact component={Confirmations} />
+                        <Route path='/confirmed/:token' exact component={ConfirmedEmail} />
+                        <Route path='/password' exact component={ResetPassword} />
+                        <Route path='/password/new/:token' exact component={NewPassword} />
+                        <ProtectedRoute path='/dashboard' exact component={Dashboard} />
+                        <ProtectedRoute path='/project/new' exact component={NewProject} />
+                        <ProtectedRoute path='/project/:projectId' exact component={ProjectPage} />
+                        <ProtectedRoute path='/project/:projectId/ticket/new' exact component={NewTicket} />
+                        <Route exact component={Page404} />
+                    </Switch>
+                </AuthContext.Provider>
             </ErrorContext.Provider>
         </Router>
     );

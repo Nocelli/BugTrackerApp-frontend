@@ -1,6 +1,7 @@
 import api from './api'
 import { useContext } from 'react'
 import { ErrorContext } from '../errors/ErrorContext'
+import { AuthContext } from '../Auth/AuthContext'
 
 const setHeaders = (token, tokenRefresh) => {
     if (!token || !tokenRefresh)
@@ -11,6 +12,7 @@ const setHeaders = (token, tokenRefresh) => {
 
 const useFetch = () => {
     const { setErrors } = useContext(ErrorContext)
+    const { setAuth } = useContext(AuthContext)
 
     return [async (type, path, data) => {
         const token = localStorage.getItem('x-token')
@@ -51,6 +53,7 @@ const useFetch = () => {
 
             if (response && response.status === 401) {
                 localStorage.clear()
+                setAuth()
                 setErrors('Disconnected')
                 return null
             }

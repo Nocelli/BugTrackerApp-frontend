@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link, Redirect, useHistory } from 'react-router-dom'
 import './style.css'
 import useFetch from '../../services/useFetch'
 import devicesImg from '../../assets/undraw_mobile_devices_k1ok.svg'
 import avatar from '../../assets/avatar_male.svg'
+import { AuthContext } from '../../Auth/AuthContext'
 
-const Logon = ({ setIsAuthenticated }) => {
+const Logon = () => {
     const [email, setEmail] = useState('')
     const [getResponse] = useFetch()
+    const { setAuth } = useContext(AuthContext)
     const [password, setPassword] = useState('')
     const [isSubmiting, setIsSubmiting] = useState(false)
     const history = useHistory()
@@ -26,7 +28,7 @@ const Logon = ({ setIsAuthenticated }) => {
             const response = await getResponse('post', '/login', { email, password })
             localStorage.setItem('x-userId', response['userId'])
             setIsSubmiting(false)
-            setIsAuthenticated(true)
+            setAuth()
             history.push('/dashboard')
         } 
         catch (error){

@@ -12,8 +12,7 @@ const DashboardItem = ({ project }) => {
                 <h3 className={`project-ownership-${project.Role === 'Dono' ? 'dono' : project.Role === 'Admin' ? 'admin' : 'dev'}`} >{project.Role}</h3>
             </div>
             <div className='project-links'>
-                <Link className='project-link' to={`project/${project.id}`}>Mais</Link>
-                <ArrowRight fill="none" stroke="#00C968" />
+                <Link className='project-link' to={`project/${project.id}`}>Mais <ArrowRight className='project-link-svg' fill="none" stroke="#00C968" /></Link>
             </div>
         </div>
     )

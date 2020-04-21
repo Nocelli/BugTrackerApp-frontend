@@ -137,6 +137,11 @@
     filter: brightness(80%);
 }
 
+.dashboard .projects-container .project .project-link .project-link-svg{
+    position: relative;
+    top: .125em;
+}
+
 .dashboard .projects-container .no-projects{
     color: #555;
     filter: brightness(160%);
