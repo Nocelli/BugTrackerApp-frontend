@@ -68,12 +68,13 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 .dashboard .projects-container .project{
     display: flex;
     flex-direction: column;
+    align-self: stretch;
     margin: 20px;
     background: #f2f5f0;
     padding: 16px;

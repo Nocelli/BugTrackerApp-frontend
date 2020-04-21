@@ -15,7 +15,7 @@ const NewProject = () => {
     const [getResponse] = useFetch()
 
     const validationSchema = yup.object({
-        name: yup.string().required().max(50),
+        name: yup.string().required().max(16),
         summary: yup.string().required().min(8).max(144),
         description: yup.string().required().min(8).max(256)
     })
@@ -56,7 +56,7 @@ const NewProject = () => {
                         <Field className='summary' name='summary' placeholder='Sumário' component='textarea' maxLength = "144" />
                         <ErrorMessage render={msg => <ErrorRenderer errors={msg} />} name="summary" />
                         
-                        <Field className='desc' name='description' placeholder='Visão geral do projeto' component='textarea' maxLength = "400" />
+                        <Field className='desc' name='description' placeholder='Visão geral do projeto' component='textarea' maxLength = "255" />
                         <ErrorMessage render={msg => <ErrorRenderer errors={msg} />} name="description" />
                         <button type='submit' disabled={isSubmitting}>Criar projeto</button>
                     </Form>
