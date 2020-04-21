@@ -10,16 +10,136 @@
     border: #333 2px solid;
     padding: 8px;
     border-radius: 16px;
-    color: #333333;
+    color: #1d1d1f;
     text-decoration: none;
+
+    position: relative;
+}
+
+.ticket-name{
+    grid-area: name;
+}
+.ticket-date{
+    grid-area: date;
+}
+.ticket-type{
+    grid-area: type;
+} 
+.ticket-status{
+    grid-area: status;
+}   
+.ticket-severity{
+    grid-area: severity;
+}
+.ticket-summary{
+    grid-area: summary;
+}   
+.ticket-description{
+    grid-area: description;
+}
+.ticket-madeby{
+    grid-area: madeby;
+}
+.ticket-madeby-name{
+    color: #1d1d1f;
+    grid-area: by;
+}
+
+.ticket-close,.ticket-delete{
+    width: 100%;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: .5rem 0;
+    transition: filter 0.2s;
+    text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9;
+    cursor: pointer;
+    margin: 1rem;
+}
+.ticket-buttons {
+    grid-area: buttons;
+    display: flex;
+    justify-content: space-around;
+}
+
+.ticket-close,.ticket-delete{
+    font-size: 1em;
+}
+
+.ticket-close:hover,.ticket-delete:hover{
+    filter: opacity(80%);
+}
+
+.ticket-close{
+    background: #00C968;
+}
+.ticket-delete{
+    background: #ec3d3d;
+}
+
+.ticket-delete-svg{
+    position: relative;
+    top: 0.125em;
+}
+
+.ticket-info{
+    grid-area: info;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.expanded-ticket-holder{
+    position: relative;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.5rem;
+    width: 95%;
+    margin-top: .5rem;
+    background: transparent;
+    border: #333 2px solid;
+    padding: 8px;
+    border-radius: 16px;
+    color: #1d1d1f;
+    text-decoration: none;
+    text-align: start;
+    display: grid;
+    grid-gap: 1rem .2rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+        "name name date"
+        "info info info"
+        "madeby by by"
+        "summary summary summary"
+        "description description description"
+        "buttons buttons buttons";
+}
+
+.expanded-ticket-holder .ticket-summary{
+    font-size: .9em;
+    color: #333;
+}
+
+.expanded-ticket-holder .ticket-description{
+    background-color: #fff;
+    border-radius: 50%;
+    font-size: .8em;
+    color: #4d4d4f;
+}
+
+.expanded-ticket-holder .ticket-madeby{
+    font-size: 1em;
+    color: #333;
 }
 
 .ticket-holder:hover{
     filter: brightness(150%);
 }
 
-.ticket-holder .ticket-type , .ticket-holder .ticket-status , .ticket-holder .ticket-severity{
-    font-size: 1rem;
+.ticket-type , .ticket-status , .ticket-severity{
+    font-size: 1em;
     justify-self: center;
     width: fit-content;
     border-radius: 10px;
@@ -29,26 +149,14 @@
 }
 
 @media screen and (max-width: 950px) {
-    .ticket-name{
-        grid-area: name;
-    }
-    .ticket-date{
-        grid-area: date;
-    }
-    .ticket-type{
-        grid-area: type;
-    } 
-    .ticket-status{
-        grid-area: status;
-    }   
-    .ticket-severity{
-        grid-area: severity;
-    }
     .ticket-holder{
         display: grid;
         grid-template-areas:
             "name . date"
-            "type status severity";
+            "info info info";
+    }
+    .expanded-ticket-holder{
+        font-size: 1rem;
     }
   }
 

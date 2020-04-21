@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import './style.css'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import { FiChevronsLeft as ArrowLeft } from "react-icons/fi";
@@ -10,7 +10,7 @@ import useFetch from '../../services/useFetch';
 
 const NewMemberModal = ({ openModal, projectId, setOpenModal }) => {
 
-    const [getResponse] = useFetch()
+    const [getResponse] = useCallback(useFetch(),[]) 
     const validationSchema = yup.object({
         email: yup.string().required().email(),
         role: yup.number().required()
