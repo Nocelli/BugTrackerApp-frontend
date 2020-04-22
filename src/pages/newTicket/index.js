@@ -71,7 +71,7 @@ const NewTicket = () => {
                         <Field className='summary' name='summary' placeholder='Sumário' component='textarea' maxLength="100" />
                         <ErrorMessage render={msg => <ErrorRenderer errors={msg} />} name="summary" />
 
-                        <Field className='desc' name='description' placeholder='Descrição' component='textarea' maxLength="300" />
+                        <Field className='desc' name='description' placeholder='Descrição' component='textarea' maxLength="255" />
                         <ErrorMessage render={msg => <ErrorRenderer errors={msg} />} name="description" />
 
                         <Field className='dropdown' name='status' component='select'>
