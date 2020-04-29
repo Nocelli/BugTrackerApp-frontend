@@ -46,7 +46,7 @@ const NavBar = ({ newNotification, setNewNotification }) => {
         <>
             {isAuth ? (
                 <nav className="navbar">
-                    <Link to='/dashboard' className='logo' >
+                    <Link to='/' className='logo' >
                         <img className='logo-img' src={logo} alt='logo' />
                         <span className='logo-name' >Bug Hero</span>
                     </Link>

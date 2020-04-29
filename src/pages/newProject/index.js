@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import './style.css'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
@@ -13,12 +13,19 @@ const NewProject = () => {
 
     const history = useHistory()
     const [getResponse] = useFetch()
+    const componentIsMounted = useRef(true)
 
     const validationSchema = yup.object({
         name: yup.string().required().max(16),
         summary: yup.string().required().min(8).max(144),
         description: yup.string().required().min(8).max(256)
     })
+
+    useEffect(()=>{
+        return () => {
+            componentIsMounted.current = false
+        }
+    },[])
 
     async function handleSubmitting({ name, summary, description }) {
         try {
@@ -37,7 +44,8 @@ const NewProject = () => {
                 onSubmit={async (data, { setSubmitting }) => {
                     setSubmitting(true)
                     await handleSubmitting(data)
-                    setSubmitting(false)
+                    if(componentIsMounted.current)
+                        setSubmitting(false)
                 }}
                 validationSchema={validationSchema}>
                 {({ isSubmitting }) => (

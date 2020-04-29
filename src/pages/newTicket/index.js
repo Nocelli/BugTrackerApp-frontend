@@ -52,7 +52,7 @@ const NewTicket = () => {
                     setSubmitting(true)
                     await handleSubmitting(data)
                     if(componentIsMounted.current)
-                    setSubmitting(false)
+                        setSubmitting(false)
                 }}
                 validationSchema={validationSchema}>
                 {({ isSubmitting }) => (

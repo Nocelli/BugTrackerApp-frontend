@@ -8,7 +8,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
         <Route {...rest} render={(props) => (
             CheckAuth() ?
                 <Component {...props} />
-        :       <Redirect to='/' />
+                : localStorage.clear && <Redirect to='/' />
         )} />
     )
 }
